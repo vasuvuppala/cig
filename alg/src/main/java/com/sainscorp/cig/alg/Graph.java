@@ -21,9 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.sainscorp.cig.alg;
 
 import java.util.BitSet;
+import java.util.Random;
 
 /**
  * A directed graph
@@ -44,24 +46,54 @@ public class Graph {
     /**
      * Generates an empty graph
      * 
-     * @param vertices
+     * @param vertices Number of vertices
      * @return 
      */
-    public Graph newInstance(int vertices) {
+    public static Graph newInstance(int vertices) {
         Graph graph = new Graph();
         graph.numOfVertices = vertices;
-        graph.adjMatrix = new BitSet(vertices * vertices);
+        graph.adjMatrix = new BitSet(vertices * vertices); // all bits are set to zero
         
         return graph;
     }
 
-    public Graph newInstance(int vertices, boolean noCycle) {
+    /**
+     * Generate a random graph
+     * 
+     * @param vertices Number of vertices
+     * @param noCycle  if true, graph must not have any cycles in it
+     * @return 
+     */
+    public static Graph newInstance(int vertices, boolean noCycle) {
+        Graph graph = Graph.newInstance(vertices);
+        Random random = new Random();       
         
+        for(int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (noCycle && i >= j) continue; // ToDo: Simple way to avoid cycles. Improve. 
+                graph.adjMatrix.set(i * vertices + j, random.nextBoolean());
+            }
+        }
+        
+        return graph;
     }
     
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        
+        for(int i = 0; i < numOfVertices; i++) {
+            result.append("[ ");
+            for (int j = 0; j < numOfVertices; j++) {              
+                result.append(adjMatrix.get(i * numOfVertices + j) ? "1 " : "0 ");
+            }
+            result.append("]\n");
+        }
+        return result.toString();
+    }
+    
+    //  Getters and setters
     public int getNumOfVertices() {
         return numOfVertices;
-    }
-    
-    
+    }        
 }
