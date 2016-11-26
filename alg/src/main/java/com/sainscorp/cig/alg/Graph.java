@@ -25,7 +25,10 @@
 package com.sainscorp.cig.alg;
 
 import java.util.BitSet;
+import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A directed graph
@@ -34,10 +37,12 @@ import java.util.Random;
  * @author vasu
  */
 public class Graph {
+    private static Logger LOGGER = Logger.getLogger(Graph.class.getCanonicalName());
+    
     private int numOfVertices;
     // ToDo: Better to have an array of bitsets? 
     // An integer multiplication + a memory access vs 2 memory accesses.     
-    private BitSet adjMatrix; 
+    private BitSet adjMatrix[]; 
     
     private Graph() {
         
@@ -52,7 +57,10 @@ public class Graph {
     public static Graph newInstance(int vertices) {
         Graph graph = new Graph();
         graph.numOfVertices = vertices;
-        graph.adjMatrix = new BitSet(vertices * vertices); // all bits are set to zero
+        graph.adjMatrix = new BitSet[vertices];
+        for(int i=0; i < vertices; i++) {
+            graph.adjMatrix[i] = new BitSet(vertices); // all bits are set to zero
+        } 
         
         return graph;
     }
@@ -71,11 +79,58 @@ public class Graph {
         for(int i = 0; i < vertices; i++) {
             for (int j = 0; j < vertices; j++) {
                 if (noCycle && i >= j) continue; // ToDo: Simple way to avoid cycles. Improve. 
-                graph.adjMatrix.set(i * vertices + j, random.nextBoolean());
+                graph.adjMatrix[i].set(j, random.nextBoolean());
             }
         }
         
         return graph;
+    }
+    
+    
+    /**
+     * Is there a path from 'v1' to 'v2'?
+     * 
+     * Connected Set of vertex x = { y | there is a path from x to y}
+     * Compute the connected set of v1, and check if v2 is in it.
+     * 
+     * @param from
+     * @param to
+     * @return true if there is path from v1 to v2
+     */
+    public boolean hasPath(int from, int to) {
+        BitSet old = new BitSet(numOfVertices); // previous value of the connected set
+        BitSet connectedSet = new BitSet(numOfVertices); 
+        BitSet difference = new BitSet(numOfVertices);
+
+        connectedSet.or(adjMatrix[from]); difference.or(connectedSet);
+        
+        while (!difference.isEmpty()) {
+            
+            difference.clear(); difference.or(connectedSet); difference.and(old); difference.xor(connectedSet);
+            LOGGER.log(Level.INFO, "Difference size is {0}", difference.cardinality());
+            LOGGER.log(Level.INFO, "Difference is {0}", difference);
+            old.clear(); old.or(connectedSet); // make a copy of the connected set
+            for (int i = difference.nextSetBit(0); i >= 0; i = difference.nextSetBit(i + 1)) {
+                connectedSet.or(adjMatrix[i]);
+                if (connectedSet.get(to)) return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Is there a cycle in the graph?
+     * 
+     * For every vertex v, check if there is a path from v to v
+     * 
+     * @return true if there is a cycle
+     */
+    public boolean detectCycle() {
+        for (int i = 0; i < numOfVertices; i++) {
+            LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
+            if (hasPath(i,i)) return true;
+        }
+        return false;
     }
     
     @Override
@@ -85,7 +140,7 @@ public class Graph {
         for(int i = 0; i < numOfVertices; i++) {
             result.append("[ ");
             for (int j = 0; j < numOfVertices; j++) {              
-                result.append(adjMatrix.get(i * numOfVertices + j) ? "1 " : "0 ");
+                result.append(adjMatrix[i].get(j) ? "1 " : "0 ");
             }
             result.append("]\n");
         }

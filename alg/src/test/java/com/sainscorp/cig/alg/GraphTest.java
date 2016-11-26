@@ -58,7 +58,7 @@ public class GraphTest {
     /**
      * Test of newInstance method, of class Graph.
      */
-    @org.junit.Test
+    @Test
     public void testNewInstance_int() {
         System.out.println("newInstance");
         int vertices = 5;
@@ -73,7 +73,7 @@ public class GraphTest {
     /**
      * Test of newInstance method, of class Graph.
      */
-    @org.junit.Test
+    @Test
     public void testNewInstance_int_boolean() {
         System.out.println("newInstance");
         int vertices = 10;
@@ -89,7 +89,7 @@ public class GraphTest {
     /**
      * Test of getNumOfVertices method, of class Graph.
      */
-    @org.junit.Test
+    @Test
     public void testGetNumOfVertices() {
         System.out.println("getNumOfVertices");
         int vertices = 10000;
@@ -101,4 +101,26 @@ public class GraphTest {
         // fail("The test case is a prototype.");
     }
     
+    /**
+     * Test of getNumOfVertices method, of class Graph.
+     */
+    @Test
+    public void testDetecCycle() {
+        System.out.println("detect cycle");
+        int vertices = 10;
+        Graph instance = Graph.newInstance(vertices, false);
+        System.out.print(instance);
+        boolean expResult = true;
+        boolean result = instance.detectCycle();
+        assertEquals(expResult, result);
+        
+//        instance = Graph.newInstance(vertices, false);
+//        System.out.print(instance);
+//        expResult = false;
+//        result = instance.detectCycle();
+//        assertEquals(expResult, result);
+        
+        // TODO review the generated test code and remove the default call to fail.
+        // fail("The test case is a prototype.");
+    }
 }
