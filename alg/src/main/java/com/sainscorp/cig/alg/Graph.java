@@ -125,8 +125,24 @@ public class Graph {
      * 
      * @return true if there is a cycle
      */
-    public boolean detectCycle() {
+    public boolean detectCycleAlg1() {
         for (int i = 0; i < numOfVertices; i++) {
+            LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
+            if (hasPath(i,i)) return true;
+        }
+        return false;
+    }
+    
+    public boolean detectCycleAlg2() {
+        BitSet deadEnds = new BitSet(numOfVertices);
+        int cardinality[] = new int[numOfVertices];
+        
+        for(int i =0; i < numOfVertices; i++) {
+            cardinality[i] = adjMatrix[i].cardinality();
+            deadEnds.set(i, cardinality[i] == 0);
+        }
+        
+        for (int i = 0; i >= 0; i = deadEnds.nextSetBit(i+1)) {
             LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
             if (hasPath(i,i)) return true;
         }
