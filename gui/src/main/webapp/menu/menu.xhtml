@@ -1,9 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+                xmlns:h="http://java.sun.com/jsf/html">
 
     <h:form id="menuform">       
 
@@ -11,8 +9,6 @@
 
         <p:menubar autoDisplay="false" >
             <p:menuitem value="Home"  outcome="home" icon="fa fa-home" />          
-
-          
             <p:menuitem value="Preferences"  url="/prefs/" icon="fa fa-cog"  disabled="true"/> 
 
             <p:submenu label="Help" icon="fa fa-info">
@@ -27,9 +23,7 @@
                             title="Report Problems"  onclick="PF('reportProblemWid').show()" disabled="true"/>
                 <p:menuitem value="About" id="aboutMenu" icon="fa fa-info"  immediate="true"
                             title="About HourLog"  onclick="PF('aboutPanelWid').show()"/>    
-            </p:submenu> 
-
-            
+            </p:submenu>      
         </p:menubar> 
     </h:form>
 

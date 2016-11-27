@@ -8,19 +8,17 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />      
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/proteus.ico']}" />
-        <h:outputScript library="js" name="ccdb-common.js" />
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/proteus.ico']}" />       
         <title>#{msgs.title}</title>
     </h:head>
 
     <h:body>
         <!--<f:facet name="last">-->
             <h:outputStylesheet library="css"  name="style.css" /> 
-            <h:outputStylesheet library="css"  name="manual.css" /> 
         <!--</f:facet>--> 
         <h:form id="MainMessageForm">
-            <p:growl id="CCDB-infoMessages" showDetail="true"  severity="info" autoUpdate="true" />
-            <p:growl id="CCDB-severeMessages" showDetail="true"  severity="error, fatal, warn" sticky="true" autoUpdate="true"  life="60000"/>
+            <p:growl id="cig-infoMessages" showDetail="true"  severity="info" autoUpdate="true" />
+            <p:growl id="cig-severeMessages" showDetail="true"  severity="error, fatal, warn" sticky="true" autoUpdate="true"  life="60000"/>
         </h:form>
 
         <div id="top" class="top box">
