@@ -133,20 +133,37 @@ public class Graph {
         return false;
     }
     
+    /**
+     * Does graph have a cycle?
+     * 
+     * @return true if it does.
+     */
     public boolean detectCycleAlg2() {
         BitSet deadEnds = new BitSet(numOfVertices);
         int cardinality[] = new int[numOfVertices];
-        
-        for(int i =0; i < numOfVertices; i++) {
+
+        for (int i = 0; i < numOfVertices; i++) {
             cardinality[i] = adjMatrix[i].cardinality();
             deadEnds.set(i, cardinality[i] == 0);
         }
-        
-        for (int i = 0; i >= 0; i = deadEnds.nextSetBit(i+1)) {
-            LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
-            if (hasPath(i,i)) return true;
+
+        int totalDeadEnds =0;
+        while (!deadEnds.isEmpty()) {
+            totalDeadEnds += deadEnds.cardinality();
+            for (int i = 0; i >= 0; i = deadEnds.nextSetBit(i + 1)) {
+                LOGGER.log(Level.INFO, "Removing vertex {0}", i);
+                for (int j = 0; j < numOfVertices; j++) {
+                    if (adjMatrix[j].get(i)) {
+                        if (--cardinality[j] == 0) {
+                            deadEnds.set(j);
+                        }
+                    }
+                }
+                deadEnds.clear(i);
+            }
         }
-        return false;
+        
+        return totalDeadEnds == numOfVertices;
     }
     
     @Override
