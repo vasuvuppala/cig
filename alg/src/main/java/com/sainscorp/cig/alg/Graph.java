@@ -25,7 +25,6 @@
 package com.sainscorp.cig.alg;
 
 import java.util.BitSet;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,51 +118,35 @@ public class Graph {
     }
     
     /**
-     * Is there a cycle in the graph?
+     * Is there an edge from v1 to v2?
      * 
-     * For every vertex v, check if there is a path from v to v
-     * 
-     * @return true if there is a cycle
+     * @param v1 - from  
+     * @param v2 - to
+     * @return true if there is an edge
      */
-    public boolean detectCycleAlg1() {
-        for (int i = 0; i < numOfVertices; i++) {
-            LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
-            if (hasPath(i,i)) return true;
-        }
-        return false;
+    public boolean hasEdge(int v1, int v2) {
+        return adjMatrix[v1].get(v2);
+    }
+    
+    
+    /**
+     * Number of edges going out from a vertext
+     * 
+     * @param vertex
+     * @return out-degree of given vertex
+     */
+    public int outDegree(int vertex) {
+        return adjMatrix[vertex].cardinality();
     }
     
     /**
-     * Does graph have a cycle?
+     * does the graph have any cycles in it?
      * 
-     * @return true if it does.
+     * @param detector
+     * @return true if it does
      */
-    public boolean detectCycleAlg2() {
-        BitSet deadEnds = new BitSet(numOfVertices);
-        int cardinality[] = new int[numOfVertices];
-
-        for (int i = 0; i < numOfVertices; i++) {
-            cardinality[i] = adjMatrix[i].cardinality();
-            deadEnds.set(i, cardinality[i] == 0);
-        }
-
-        int totalDeadEnds =0;
-        while (!deadEnds.isEmpty()) {
-            totalDeadEnds += deadEnds.cardinality();
-            for (int i = 0; i >= 0; i = deadEnds.nextSetBit(i + 1)) {
-                LOGGER.log(Level.INFO, "Removing vertex {0}", i);
-                for (int j = 0; j < numOfVertices; j++) {
-                    if (adjMatrix[j].get(i)) {
-                        if (--cardinality[j] == 0) {
-                            deadEnds.set(j);
-                        }
-                    }
-                }
-                deadEnds.clear(i);
-            }
-        }
-        
-        return totalDeadEnds == numOfVertices;
+    public boolean hasCycle(CycleDetector detector) {
+        return detector.detectCycle(this);
     }
     
     @Override

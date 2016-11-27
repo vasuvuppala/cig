@@ -66,8 +66,8 @@ public class GraphTest {
         Graph result = Graph.newInstance(vertices);
         // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        System.out.print(result);
-        fail("The test case is a prototype.");
+        // System.out.print(result);
+        // fail("The test case is a prototype.");
     }
 
     /**
@@ -83,7 +83,7 @@ public class GraphTest {
         // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         System.out.print(result);
-        fail("The test case is a prototype.");
+        // fail("The test case is a prototype.");
     }
 
     /**
@@ -108,10 +108,13 @@ public class GraphTest {
     public void testDetecCycle() {
         System.out.println("detect cycle");
         int vertices = 10;
-        Graph instance = Graph.newInstance(vertices, false);
+        Graph instance = Graph.newInstance(vertices, true);
         System.out.print(instance);
-        boolean expResult = true;
-        boolean result = instance.detectCycle();
+        boolean expResult = false;
+        boolean result = instance.hasCycle(new TraversePath());
+        assertEquals(expResult, result);
+        
+        result = instance.hasCycle(new DiscardDeadends());
         assertEquals(expResult, result);
         
 //        instance = Graph.newInstance(vertices, false);
