@@ -56,7 +56,7 @@ public class DiscardDeadends implements CycleDetector {
         while (!deadends.isEmpty()) {
             totalDeadends += deadends.cardinality();
             for (int i = deadends.nextSetBit(0); i >= 0; i = deadends.nextSetBit(i + 1)) {
-                LOGGER.log(Level.INFO, "Removing vertex {0}", i);
+                // LOGGER.log(Level.INFO, "Removing vertex {0}", i);
                 for (int j = 0; j >= 0; j = nonDeadends.nextSetBit(j + 1)) {
                     if (graph.hasEdge(j, i)) {
                         if (--cardinality[j] == 0) {

@@ -32,15 +32,41 @@
                 Run the implementations
             </h2>
             <h:form>
-                <p:outputLabel for="vert" value="Number of vertices: " />
-                <p:inputNumber id="vert" value="#{resultPresenter.inputVertices}" required="true" />
-                <p:messages id="messages" for="vert" />
-                <p:outputLabel for="cycl" value="With Cycles:  " />
-                <p:selectBooleanCheckbox id="cycl" value="#{resultPresenter.inputCycleChoice}" />
-                
-                <p:commandButton value="Generate" action="#{resultPresenter.generateGraph()}" process="@form" update="messages"/>
-                <p:commandButton value="Execute" action="#{resultPresenter.findCycle()}"  update="result"/>
-                <h:outputText id="result" value="Result was #{resultPresenter.result}" />
+                <!--<p:commandButton value="Start" type="button" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />-->
+                <p:commandButton value="Start"  action="#{resultPresenter.runExperiments()}" async="true" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />
+                <p:commandButton value="Cancel" actionListener="#{resultPresenter.onCancel()}" oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
+                <br /><br />
+                <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" labelTemplate="{value}%" styleClass="animated" global="false">
+                    <p:ajax event="complete" listener="#{resultPresenter.onComplete}" oncomplete="PF('startButton2').enable()" update="results"/>
+                </p:progressBar>
+
+                <p:commandButton value="Execute" action="#{resultPresenter.runExperiments()}"  update="results"/>
+                <p:panel id="results" header="Results"  toggleable="true">
+                    <p:dataTable var="item" value="#{resultPresenter.experimentResults}" 
+                                 rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}">
+                        <p:column headerText="Exp #" sortBy="#{item.experiment}" width="8%">
+                            <h:outputText value="#{item.experiment}"/>
+                        </p:column>
+                        <p:column headerText="Size" sortBy="#{item.graphSize}" width="15%">
+                            <h:outputText value="#{item.graphSize}"/>
+                        </p:column>
+                        <p:column headerText="With Cycles" sortBy="#{item.withCycles}" width="10%">
+                            <h:outputText value="#{item.withCycles}"/>
+                        </p:column>
+                        <p:column headerText="Algorithm" sortBy="#{item.algorithmName}" filterBy="#{item.algorithmName}">
+                            <h:outputText value="#{item.algorithmName}"/>
+                        </p:column>
+                        <p:column headerText="Has Cycles"  widht="10%">
+                            <h:outputText value="#{item.hasCycles}"/>
+                        </p:column>
+                        <p:column headerText="Exec Time (ms)" sortBy="#{item.execTime}" >
+                            <h:outputText value="#{item.execTime}" style="float: right">
+                                <f:convertNumber type="number" minFractionDigits="3"/>
+                            </h:outputText>                            
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
             </h:form>
 
 

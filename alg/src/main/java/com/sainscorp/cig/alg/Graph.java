@@ -107,7 +107,7 @@ public class Graph {
             
             //difference.clear(); difference.or(connectedSet); difference.and(old); difference.xor(connectedSet);
             difference.clear(); difference.or(connectedSet);  difference.xor(old);
-            LOGGER.log(Level.INFO, "Difference size is {0}", difference.cardinality());
+            // LOGGER.log(Level.INFO, "Difference size is {0}", difference.cardinality());
             // LOGGER.log(Level.INFO, "Difference is {0}", difference);
             old.clear(); old.or(connectedSet); // make a copy of the connected set
             for (int i = difference.nextSetBit(0); i >= 0; i = difference.nextSetBit(i + 1)) {

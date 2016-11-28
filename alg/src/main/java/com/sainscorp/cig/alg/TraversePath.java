@@ -35,8 +35,9 @@ public class TraversePath implements CycleDetector {
     
     @Override
     public boolean detectCycle(Graph graph) {
+        LOGGER.log(Level.INFO, "Starting Traverse Path");
         for (int i = 0; i < graph.getNumOfVertices(); i++) {
-            LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
+            // LOGGER.log(Level.INFO, "Checking cycle at {0}", i);
             if (graph.hasPath(i,i)) return true;
         }
         return false;
