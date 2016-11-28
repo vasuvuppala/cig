@@ -37,6 +37,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 /**
  * Presenter for results
@@ -88,6 +92,10 @@ public class ResultPresenter implements Serializable {
     private double progressDelta = 0.0;
     private boolean cancelExperiment = false;
     private final static int PROGRESS_MAX = 100;
+    
+    // chart
+    private BarChartModel barChartForCyclic; // chart for cyclic graphs
+    private BarChartModel barChartForAcyclic; // chart for acyclic graphs
 
     @PostConstruct
     public void init() {
@@ -158,14 +166,16 @@ public class ResultPresenter implements Serializable {
                         if (cancelExperiment) {
                             return;
                         }
-                        result = runExperiment(expNumber++, graph, noCycles, algo);
+                        result = runExperiment(expNumber, graph, noCycles, algo);
                         if (result != null) {
                             experimentResults.add(result);
                         }
                     }
+                    ++expNumber;
                 }
             }
             // showMessage(FacesMessage.SEVERITY_INFO, "Exerpiemnts completed", "Check the results");
+            createBarChart();
         } catch (Exception e) {
             showMessage(FacesMessage.SEVERITY_ERROR, "Something awful happened!", e.getMessage());
         } finally {
@@ -183,6 +193,48 @@ public class ResultPresenter implements Serializable {
         showMessage(FacesMessage.SEVERITY_INFO, "Exerpiemnts completed", "Check the results!");
     }
 
+    private BarChartModel initBarChart(boolean cycles) {
+        BarChartModel model = new BarChartModel();
+ 
+        for(Algorithm algo: algorithms) {
+            ChartSeries series = new ChartSeries();
+            series.setLabel(algo.getName());
+            experimentResults.stream()
+                    .filter(p -> p.getWithCycles() == cycles)
+                    .filter(p -> algo.getName().equals(p.getAlgorithmName()))
+                    .forEach(p -> series.set(p.getExperiment(), p.getExecTime()));
+            model.addSeries(series);
+        }
+
+        model.setTitle(cycles? "Graphs with Cycles": "Graphs without Cycles");
+        model.setLegendPosition("ne");
+         
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel("Experiment Number");
+         
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Exec Time (ms)");
+        
+        return model;
+    }
+     
+    private void createBarChart() {
+        LOGGER.log(Level.INFO, "Creating the bar chart");
+        barChartForCyclic = initBarChart(true);
+        barChartForAcyclic = initBarChart(false);
+         
+//        barChart.setTitle("Cycles in Graphs");
+//        barChart.setLegendPosition("ne");
+//         
+//        Axis xAxis = barChart.getAxis(AxisType.X);
+//        xAxis.setLabel("Experiment");
+//         
+//        Axis yAxis = barChart.getAxis(AxisType.Y);
+//        yAxis.setLabel("Exec Time (ms)");
+        // yAxis.setMin(0);
+        // yAxis.setMax(1000);
+    }
+    
     /**
      * Display a message on the browser
      *
@@ -245,4 +297,11 @@ public class ResultPresenter implements Serializable {
         this.filteredResults = filteredResults;
     }
 
+    public BarChartModel getBarChartForCyclic() {
+        return barChartForCyclic;
+    }
+
+    public BarChartModel getBarChartForAcyclic() {
+        return barChartForAcyclic;
+    }
 }

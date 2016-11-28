@@ -12,38 +12,37 @@
                 <p:graphicImage title="Gestaltism"  value="#{resource['images/gestalt.png']}" style='float: right' rendered="true"/>             
             </h2>
             <p>
-                During the design and construction of an experimental physics 
-                facility (EPF), a heterogeneous set of engineering disciplines, 
-                methods, and tools is used, making subsequent exploitation of 
-                data difficult. Distributed Information Services for Control Systems (<h:outputLink value="#{msgs.discs}" target="_blank">DISCS</h:outputLink>) 
-                is a framework for building high-level applications for commissioning, operation, 
-                and maintenance of an EPF. It provides programmatic as well as graphical interfaces 
-                to its data and services.
 
-                Central Configuration Database System (CCDB) is a module in DISCS; it is a software tool that 
-                assists in managing the configuration of an EPF.                    
-                It stores physical and logical information about the accelerator and its component systems:
-                devices, device types, device properties, relationships among devices, data on installation, alignment, and signals.
-                This includes information about magnets, RFQs, RF cavities, diagnostic devices, 
-                solenoids, power supplies, valves, pumps etc.        
             </p>
 
             <h2 id='terminology'>
                 Run the implementations
             </h2>
             <h:form>
-                <!--<p:commandButton value="Start" type="button" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />-->
-                <p:commandButton value="Start"  action="#{resultPresenter.runExperiments()}" async="true" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />
-                <p:commandButton value="Cancel" actionListener="#{resultPresenter.onCancel()}" oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
-                <br /><br />
-                <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" labelTemplate="{value}%" styleClass="animated" global="false">
-                    <p:ajax event="complete" listener="#{resultPresenter.onComplete}" oncomplete="PF('startButton2').enable()" update="results"/>
-                </p:progressBar>
+                <p:panelGrid columns="3" styleClass="noBorders">
 
-                <p:commandButton value="Execute" action="#{resultPresenter.runExperiments()}"  update="results"/>
-                <p:panel id="results" header="Results"  toggleable="true">
-                    <p:dataTable var="item" value="#{resultPresenter.experimentResults}" 
-                                 rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}">
+                    <p:commandButton value="Start"  action="#{resultPresenter.runExperiments()}" async="true" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />
+
+                    <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" 
+                                   labelTemplate="{value}%" styleClass="animated" global="false"  interval="5" style="width: 300px">
+                        <p:ajax event="complete" listener="#{resultPresenter.onComplete}" oncomplete="PF('startButton2').enable()" update="resultsForm"/>
+                    </p:progressBar>
+
+                    <p:commandButton value="Cancel" actionListener="#{resultPresenter.onCancel()}" oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
+
+                </p:panelGrid>
+            </h:form>   
+
+            <h2>
+                Results
+            </h2>
+
+            <h:form id="resultsForm">
+
+                <p:panel id="results" header="Results"  toggleable="true" rendered="#{not empty resultPresenter.experimentResults}">
+                    <p:dataTable id="resultsTable" var="item" value="#{resultPresenter.experimentResults}" 
+                                 rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}"
+                                 rendered="#{not empty resultPresenter.experimentResults}">
                         <p:column headerText="Exp #" sortBy="#{item.experiment}" width="8%">
                             <h:outputText value="#{item.experiment}"/>
                         </p:column>
@@ -65,23 +64,36 @@
                             </h:outputText>                            
                         </p:column>
                     </p:dataTable>
+                    <h:commandLink>
+                        <p:graphicImage name="images/excel.png" title="Download as Excel"/>
+                        <p:dataExporter type="xls" target="resultsTable" fileName="cig" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="images/pdf.png" title="Download as PDF"/>
+                        <p:dataExporter type="pdf" target="resultsTable" fileName="cig"  />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="images/csv.png"  title="Download as CSV"/>
+                        <p:dataExporter type="csv" target="resultsTable" fileName="cig"  />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="images/xml.png" title="Download as XML"/>
+                        <p:dataExporter type="xml" target="resultsTable" fileName="cig" />
+                    </h:commandLink>
+
+                    <p:spacer height="30"/>
+                    <p:separator />
+                    <p:chart type="bar" model="#{resultPresenter.barChartForAcyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForAcyclic}"/>
+
+                    <p:spacer height="30"/>
+                    <p:separator />
+                    <p:chart type="bar" model="#{resultPresenter.barChartForCyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForCyclic}"/>
                 </p:panel>
 
             </h:form>
-
-
-            <h2 id='features'>
-                Features
-            </h2>
-            <p>CCDB assists in managing the following information: </p>
-            <ul>
-                <li><h:panelGroup styleClass="fa fa fa-tablet" /> Device Types: Properties, artifacts (documents or links), and classification</li>
-                <li><h:panelGroup styleClass="fa fa fa-cogs" /> Devices: Artifacts, properties, installation, and tags</li>
-                <li><h:panelGroup styleClass="fa fa fa-server" /> Slots: Artifacts, properties, tags, hierarchy, installation, and alignment</li>
-                <li><h:panelGroup styleClass="fa fa fa-list-alt" /> Checklists: Inspection status of devices or slots</li>
-                <li><h:panelGroup styleClass="fa fa fa-thumbs-o-up" /> Approvals: Status of reviews such as DRR and ARR</li>               
-                <li><h:panelGroup styleClass="fa fa fa-road" /> Beampaths: Path of the beam between any two elements</li>               
-            </ul>
 
             <h2 id='api'>
                 API                
