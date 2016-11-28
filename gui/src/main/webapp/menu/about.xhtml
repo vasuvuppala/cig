@@ -13,7 +13,7 @@
     xmlns:h="http://java.sun.com/jsf/html">
 
     <p:dialog id="aboutPanel"  header="About #{msgs.title}" widgetVar="aboutPanelWid"  
-              hideEffect="clip"  modal="true" width="500"> 
+              hideEffect="clip"  modal="true" width="400"> 
         <p:panelGrid>            
             <p:row>  
                 <p:column>Version</p:column>  
@@ -24,10 +24,7 @@
                 <p:column>API Version</p:column>  
                 <p:column>#{msgs.apiversion}</p:column>    
             </p:row>
-            <p:row>  
-                <p:column>Concept</p:column>  
-                <p:column>#{msgs.conceptTeam}</p:column>    
-            </p:row>
+            
             <p:row>  
                 <p:column>Core Development</p:column>  
                 <p:column>#{msgs.devTeam}</p:column>    
@@ -36,37 +33,17 @@
                 <p:column>Design</p:column>  
                 <p:column>#{msgs.designTeam}</p:column>    
             </p:row>
-            <p:row>  
-                <p:column>Domain Experts</p:column>  
-                <p:column>#{msgs.domainExperts}</p:column>    
-            </p:row>
             
-            <p:row>  
-                <p:column>Production</p:column>  
-                <p:column>#{msgs.productionTeam}</p:column>    
-            </p:row>
             <p:row>  
                 <p:column>QA</p:column>  
                 <p:column>#{msgs.qaTeam}</p:column>    
-            </p:row>
-            
-            <p:row>  
-                <p:column>Schema</p:column>  
-                <p:column>#{msgs.schemaTeam}</p:column>    
-            </p:row>
-            <p:row>                
-                <p:column>Systems Engineering</p:column>
-                <p:column>#{msgs.systemsEngineering}</p:column>    
-            </p:row>         
+            </p:row>           
+                 
             <p:row>  
                 <p:column>Support </p:column>  
                 <p:column>Send Email to <a href="mailto:#{msgs.supportEmail}?Subject=Subject=#{msgs.title}: Feedback">Support Team</a></p:column>    
             </p:row>
-            <p:row>
-                <p:column colspan="2" style="text-align: center; font-weight: bold">
-                    <h:outputText value="#{msgs.tagline}" escape="false"/>
-                </p:column>
-            </p:row>
+           
         </p:panelGrid>
     </p:dialog>
 </ui:composition>

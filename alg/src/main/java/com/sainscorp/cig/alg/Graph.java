@@ -105,9 +105,10 @@ public class Graph {
         
         while (!difference.isEmpty()) {
             
-            difference.clear(); difference.or(connectedSet); difference.and(old); difference.xor(connectedSet);
+            //difference.clear(); difference.or(connectedSet); difference.and(old); difference.xor(connectedSet);
+            difference.clear(); difference.or(connectedSet);  difference.xor(old);
             LOGGER.log(Level.INFO, "Difference size is {0}", difference.cardinality());
-            LOGGER.log(Level.INFO, "Difference is {0}", difference);
+            // LOGGER.log(Level.INFO, "Difference is {0}", difference);
             old.clear(); old.or(connectedSet); // make a copy of the connected set
             for (int i = difference.nextSetBit(0); i >= 0; i = difference.nextSetBit(i + 1)) {
                 connectedSet.or(adjMatrix[i]);
@@ -146,7 +147,9 @@ public class Graph {
      * @return true if it does
      */
     public boolean hasCycle(CycleDetector detector) {
-        return detector.detectCycle(this);
+        boolean result = detector.detectCycle(this);
+        // LOGGER.log(Level.INFO, "Cycle {0} detected in the graph", result? "": "not" );
+       return result;
     }
     
     @Override

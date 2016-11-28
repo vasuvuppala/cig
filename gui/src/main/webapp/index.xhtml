@@ -6,12 +6,12 @@
                 template="/WEB-INF/template/template.xhtml">
 
     <ui:define name="content">
-         <p:panel header="CiG" >            
+        <p:panel header="CiG" >            
             <h2 id='introduction'>
                 Introduction
                 <p:graphicImage title="Gestaltism"  value="#{resource['images/gestalt.png']}" style='float: right' rendered="true"/>             
             </h2>
-             <p>
+            <p>
                 During the design and construction of an experimental physics 
                 facility (EPF), a heterogeneous set of engineering disciplines, 
                 methods, and tools is used, making subsequent exploitation of 
@@ -19,7 +19,7 @@
                 is a framework for building high-level applications for commissioning, operation, 
                 and maintenance of an EPF. It provides programmatic as well as graphical interfaces 
                 to its data and services.
-                
+
                 Central Configuration Database System (CCDB) is a module in DISCS; it is a software tool that 
                 assists in managing the configuration of an EPF.                    
                 It stores physical and logical information about the accelerator and its component systems:
@@ -27,13 +27,23 @@
                 This includes information about magnets, RFQs, RF cavities, diagnostic devices, 
                 solenoids, power supplies, valves, pumps etc.        
             </p>
-           
-            <h2 id='terminology'>
-                Terminology
-            </h2>
 
-            
-            
+            <h2 id='terminology'>
+                Run the implementations
+            </h2>
+            <h:form>
+                <p:outputLabel for="vert" value="Number of vertices: " />
+                <p:inputNumber id="vert" value="#{resultPresenter.inputVertices}" required="true" />
+                <p:messages id="messages" for="vert" />
+                <p:outputLabel for="cycl" value="With Cycles:  " />
+                <p:selectBooleanCheckbox id="cycl" value="#{resultPresenter.inputCycleChoice}" />
+                
+                <p:commandButton value="Generate" action="#{resultPresenter.generateGraph()}" process="@form" update="messages"/>
+                <p:commandButton value="Execute" action="#{resultPresenter.findCycle()}"  update="result"/>
+                <h:outputText id="result" value="Result was #{resultPresenter.result}" />
+            </h:form>
+
+
             <h2 id='features'>
                 Features
             </h2>

@@ -9,6 +9,8 @@
     <groupId>com.sainscorp.cig</groupId>
     <artifactId>alg</artifactId>
     <packaging>jar</packaging>
+    <name>CiG Algorithms</name>
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

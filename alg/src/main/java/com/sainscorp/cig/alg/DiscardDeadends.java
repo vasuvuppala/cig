@@ -37,6 +37,7 @@ public class DiscardDeadends implements CycleDetector {
     
     @Override
     public boolean detectCycle(Graph graph) {
+        LOGGER.log(Level.INFO, "Starting discard deadends");
         int numOfVertices = graph.getNumOfVertices();
         BitSet deadends = new BitSet(numOfVertices);
         BitSet nonDeadends = new BitSet(numOfVertices);
