@@ -23,10 +23,13 @@
  */
 package com.sainscorp.cig.gui;
 
+import com.sainscorp.cig.alg.CycleDetector;
 import com.sainscorp.cig.alg.DiscardDeadends;
 import com.sainscorp.cig.alg.Graph;
 import com.sainscorp.cig.alg.TraversePath;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -44,7 +47,55 @@ import javax.inject.Named;
 public class ResultPresenter implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(ResultPresenter.class.getCanonicalName());
     
+    public static class Result {
+        private String algorithmName;
+        private CycleDetector algorithm;
+        private boolean cycleFound = false;
+        private double execTime = 0.0;
+        
+        private Result() {
+            
+        }
+        
+        public static Result newInstance(String name, CycleDetector algo) {
+            Result result = new Result();
+            result.algorithm = algo;
+            result.algorithmName = name;
+            
+            return result;
+        }
+        
+        // getters
+
+        public String getAlgorithmName() {
+            return algorithmName;
+        }
+
+        public CycleDetector getAlgorithm() {
+            return algorithm;
+        }
+
+        public double getExecTime() {
+            return execTime;
+        }
+
+        public void setExecTime(double execTime) {
+            this.execTime = execTime;
+        }
+
+        public boolean isCycleFound() {
+            return cycleFound;
+        }
+
+        public void setCycleFound(boolean cycleFound) {
+            this.cycleFound = cycleFound;
+        }
+        
+    }
+    
+    
     private Graph graph;
+    private List<Result> resultList;
     // inputs
     private int inputVertices = 1000;
     private boolean inputCycleChoice = false;
@@ -54,7 +105,10 @@ public class ResultPresenter implements Serializable {
     
     @PostConstruct
     public void init() {
+        resultList = new ArrayList<>();
         
+        resultList.add(Result.newInstance("Traverse Paths", new TraversePath()));
+        resultList.add(Result.newInstance("Discard Deadends", new DiscardDeadends()));
     }
     
     public void generateGraph() {
@@ -72,6 +126,13 @@ public class ResultPresenter implements Serializable {
         //result = graph.hasCycle(new DiscardDeadends());
     }
     
+    /**
+     * Display a message on the browser
+     * 
+     * @param severity
+     * @param summary
+     * @param message 
+     */
     public static void showMessage(FacesMessage.Severity severity, String summary, String message) {
         FacesContext context = FacesContext.getCurrentInstance();
 
