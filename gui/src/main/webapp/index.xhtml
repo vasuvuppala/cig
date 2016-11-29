@@ -36,7 +36,7 @@
                     <li>Compute the outdegree of each vertex. </li>
                     <li>For each edge (v, d) where d is a deadend, reduce the outdegree of vertex v (i.e remove the deadends from the graph).</li>
                     <li>Repeat the above step until no deadends are left in the graph.</li>
-                    <li>If all vertices in the graph are deadends it doed not have cycles, otherwise it does.</li>
+                    <li>If all vertices in the graph are deadends it does not have cycles, otherwise it does.</li>
                 </ol>
                 This algorithm has the complexity of O(n + e), where n is the number of vertices and e is the number of edges in the graph.
 
@@ -87,7 +87,11 @@
 
                     <p:dataTable id="resultsTable" var="item" value="#{resultPresenter.experimentResults}" 
                                  rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}"
-                                 emptyMessage="You must  run the experiments first" styleClass="ccdbDataTable">
+                                 currentPageReportTemplate="Displaying {startRecord} - {endRecord} of {totalRecords}. Page: {currentPage}/{totalPages}"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"
+                                 rows="25" paginator="true" rowsPerPageTemplate="25,50,100" 
+                                 emptyMessage="No result records.You must run the experiments first."  styleClass="cigDatatable">
+                        
                         <p:column headerText="Exp #" sortBy="#{item.experiment}" width="8%">
                             <h:outputText value="#{item.experiment}"/>
                         </p:column>
@@ -146,7 +150,18 @@
                 The experiments can be invoked through an Application Programming Interface. Its details are given in
                 <p:link href='/rest' target="_blank">The CiG API Manual</p:link>.
 
-                Examples:
+                For example, <p:link 
+                    href="#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{msgs.restURIbase}/exp" 
+                    target="_blank">
+                    #{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{msgs.restURIbase}/exp
+                </p:link> will return results for one experiment.
+            </p>
+
+            <h2>Source </h2>
+            <p>
+                Source code for this application is available on 
+                <p:link href="#{msgs.sourceGithub}" target="_blank">GitHub</p:link>.
+
             </p>
         </div>
     </ui:define>

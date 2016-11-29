@@ -97,11 +97,11 @@
 }
 
 
-.ui-datatable.ccdbDatatable tbody,
-.ui-datatable.ccdbDatatable th,
-.ui-datatable.ccdbDatatable th
-.ui-datatable.ccdbDatatable td {
-    font-size: 10pt;
+.ui-datatable.cigDatatable tbody,
+.ui-datatable.cigDatatable th,
+.ui-datatable.cigDatatable th
+.ui-datatable.cigDatatable td {
+    font-size: 9pt;
     white-space: normal; /* text wrap around */
 
 }

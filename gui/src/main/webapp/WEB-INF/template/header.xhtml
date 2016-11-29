@@ -9,9 +9,11 @@
         <p:row>
             <p:column>
                 <h:link outcome="home" styleClass="title">
-                    <p:graphicImage value="#{resource['images/cig.png']}" height="30" width="50"/>
-                    <p:spacer width="5"/>                              
-                    <h:outputText value="#{msgs.title}" />                                
+                    <p:panelGrid columns="2" styleClass="noBorders">
+                        <p:graphicImage value="#{resource['images/cig.gif']}" height="40" width="40" />
+
+                        <h:outputText value="#{msgs.title}" styleClass="title"/>   
+                    </p:panelGrid>
                 </h:link>       
             </p:column>
         </p:row>

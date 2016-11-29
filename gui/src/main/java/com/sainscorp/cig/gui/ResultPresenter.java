@@ -55,10 +55,10 @@ public class ResultPresenter implements Serializable {
     private List<Algorithm> algorithms;
 
     // settings
-    private int maxIterations = 2;
+    private int maxIterations = 3;
     private int multiplier = 2;
     private int initialGraphSize = 1000;
-    private int repetitions = 1;
+    private int repetitions = 2;
 
     // results
     private List<Result> experimentResults = new ArrayList<>();
