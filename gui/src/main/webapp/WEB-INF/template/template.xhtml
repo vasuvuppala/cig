@@ -15,6 +15,7 @@
     <h:body>
         <!--<f:facet name="last">-->
             <h:outputStylesheet library="css"  name="style.css" /> 
+            <h:outputStylesheet library="css"  name="manual.css" /> 
         <!--</f:facet>--> 
         <h:form id="MainMessageForm">
             <p:growl id="cig-infoMessages" showDetail="true"  severity="info" autoUpdate="true" />
@@ -32,7 +33,7 @@
             </ui:insert>
         </div>
 
-        <div id="content" >
+        <div id="content" class="">
             <ui:insert name="content">Content</ui:insert>
         </div>
         <p:spacer height="5" />

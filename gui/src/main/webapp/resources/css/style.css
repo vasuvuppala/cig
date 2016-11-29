@@ -1,11 +1,31 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2016 vasu.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
 /* 
-    Document   : Layout
-    Created on : Oct 16, 2013, 3:48:17 PM
-    Author     : Vasu V <vuppala@frib.msu.org>
-    Description:
-        Purpose of the stylesheet follows.
-
+    
+   Author     : Vasu V <vuppala@msu.edu>
+    
    TODO: Remove !important from all 
 */
 
@@ -26,11 +46,6 @@ a {
 
 .centered { 
     margin: 0 auto;
-}
-
-.experiment a {
-    text-decoration: none;       
-    color: darkslateblue;
 }
 
 .ui-growl {
@@ -64,15 +79,6 @@ a {
 }
 
 
-.ui-clock {
-    background: none;
-    border: none;
-    font-weight:  normal !important;
-    font-size: 12px !important;
-    padding: 0px !important;
-}
-
-
 /* -------------------------------------------------------- */
 
 .title {
@@ -81,18 +87,6 @@ a {
     font-style: normal;
     font-weight: bold; 
     text-decoration: none;
-}
-
-.testTitle {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 20px; 
-    font-style: normal;
-    font-weight: bold; 
-    color:  #ff0000;
-}
-
-.logDay {
-    color: darkslateblue;
 }
 
 .tableFooter 
@@ -146,13 +140,6 @@ a {
     margin: 0 auto;
 }
 
-.noBordersNP>tbody>tr, .noBordersNP>tbody>tr>td {
-    /* background: none; */ 
-    border: none !important;
-    padding: 0px !important;
-    /* vertical-align: top; */
-}
-
 .verticalAligned td {
     vertical-align: top;
 }
@@ -161,46 +148,8 @@ a {
     background-color: transparent !important;
 }
 
-
 .export-grid {
     margin: 5px auto;
-}
-
-.facilityName { 
-    font-weight: bold;
-    /*font-size:  large;*/
-    /*font-style:  italic;*/
-}
-
-.beamName { 
-    font-weight:  normal;
-}
-
-.beamPos { 
-    display: inline-block; 
-    vertical-align:  middle;
-}
-
-.iconDisplay { 
-    display: inline-block; 
-}
-
-.logColumn {
-    padding: 1px !important;
-    /* margin: 3px !important; */
-    text-align: center;
-}
-
-.newEvent {  
-    font-weight: bold !important;
-}
-
-.reportSectionHeading {  
-    font-weight: bold;
-}
-
-.newEventTitle{  
-    font-style:  italic;
 }
 
 .thinPanel tr .thinPanel td {
@@ -215,43 +164,9 @@ a {
     text-align: center;
 }
 
-.eventInfo {
-    border: none;
-    background:  transparent;
-    padding: 0;
-}
 
-.reportTotals {
-    font-weight:  bold;
-}
-/* facility summary color codes */
-.SOF {
-    color: #333333;
-}
 
-.UOF {
-    color: #ff0000;
-}
 
-.PDT {
-    color: #eeaa00;
-}
-
-.SDT {
-    color: #ddcc00;
-}
-
-.IDT {
-    color: #eeaa00;
-}
-
-.EXR {
-    color: #33aa00;
-}
-
-.XDT {
-    color: #66aa88;
-}
 
 /* -------------------------------------------------- */
 
@@ -267,9 +182,9 @@ a {
 }
 
 #content {
-    margin: 5px; 
-    /* padding: 10px; */
-    /*width: 98%;*/
+    margin: 0 auto; 
+/*     padding: 30px; */
+    width: 90%;
 /*    margin-left: auto;
     margin-right: auto;*/
     /* border: 0px solid LightGray; */

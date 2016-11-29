@@ -30,7 +30,14 @@ import java.util.logging.Logger;
 /**
  * Detects cycles in a graph by removing deadends (vertices with no out going edges)
  * 
- * @author vvuppala
+ *  <ol>
+ *       <li>Compute the outdegree of each vertex. </li>
+ *       <li>For each edge (v, d) where d is a deadend, reduce the outdegree of vertex v (i.e remove the deadends from the graph).</li>
+ *       <li>Repeat the above step until no deadends are left in the graph.</li>
+ *       <li>If all vertices in the graph are deadends it doed not have cycles, otherwise it does.</li>
+ *  </ol>
+ * 
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class DiscardDeadends implements CycleDetector {
     private static final Logger LOGGER = Logger.getLogger(DiscardDeadends.class.getCanonicalName());

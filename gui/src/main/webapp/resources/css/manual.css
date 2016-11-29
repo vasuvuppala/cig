@@ -1,0 +1,107 @@
+
+/*
+ * The MIT License
+ *
+ * Copyright 2016 vasu.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/* 
+    
+   Author     : Vasu V <vuppala@msu.edu>
+    
+   TODO: Remove !important from all 
+*/
+
+.userManual {
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 12pt;
+}
+
+.userManual h1 {
+    font-family: "Times New Roman", Georgia, Serif !important;
+    text-align: center;
+    font-size:   24pt;
+    color:  cadetblue;
+}
+
+.userManual h2 {
+    font-size:   18pt;
+    font-family: "Times New Roman", Georgia, Serif !important;
+    /*font-variant:  small-caps;*/
+    color:   darkcyan;
+}
+
+.userManual h3 {
+    font-size:   14pt;
+    font-family: "Times New Roman", Georgia, Serif !important;
+    /*font-variant:  small-caps;*/
+    /*color:  darkturquoise;*/
+}
+
+.userManual blockquote {
+    font-size:   12pt;
+    text-align: right;
+}
+
+.userManual q {
+    font-style: italic;
+}
+
+.userManual p,ul {
+    /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;*/
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size:   12pt;
+    text-align: justify;
+}
+
+.userManual>tbody>tr, .noBorders>tbody>tr>td {
+    /* background: none; */ 
+    font-size:   12pt !important;
+    /* vertical-align: top; */
+}
+
+.toc {
+    position:  fixed;
+    font-family: "Times New Roman", Georgia, Serif !important;
+    /*top: 0;*/
+}
+
+.toc a {
+    text-align: left;
+    font-size:   14pt;
+    color:  deepskyblue; 
+    text-decoration: none;
+    display:  block;
+}
+
+.ui-widget {
+    font-size: 10pt;
+}
+
+
+.ui-datatable.ccdbDatatable tbody,
+.ui-datatable.ccdbDatatable th,
+.ui-datatable.ccdbDatatable th
+.ui-datatable.ccdbDatatable td {
+    font-size: 10pt;
+    white-space: normal; /* text wrap around */
+
+}

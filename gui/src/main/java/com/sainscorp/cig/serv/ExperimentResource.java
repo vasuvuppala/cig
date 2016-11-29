@@ -39,7 +39,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * REST Web Service
  *
- * @author vvuppala
+ * @author  <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 @Path("/exp")
 @RequestScoped
@@ -52,8 +52,8 @@ public class ExperimentResource {
     }
 
     /**
-     * Perform an experiment and return the details. 
-     * 
+     * Perform an experiment and return the details.
+     *
      * ToDo: Share code with Result Viewer bean
      *
      * @param size - number of vertices in the generated graph

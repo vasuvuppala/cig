@@ -1,14 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <h:form id="menuform">
 
         <p:menubar autoDisplay="false" >
             <p:menuitem value="Home"  outcome="home" icon="ui-icon-home " /> 
-            <p:menuitem value="API"  outcome="api" icon="ui-icon-script "  />
+            <p:menuitem value="API"   outcome="api" icon="ui-icon-transfer-e-w"  />
+             <p:menuitem value="Source"  outcome="api" icon="ui-icon-script"  />
             <p:menuitem value="Settings"  url="/prefs/" icon="ui-icon-gear "  disabled="true" /> 
             <p:submenu label="Help" icon="ui-icon-volume-on" style="float: right">
                 <p:menuitem value="Report Problems" id="reportProblem" icon="fa fa-info"  immediate="true"

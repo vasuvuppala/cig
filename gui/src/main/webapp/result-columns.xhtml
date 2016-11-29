@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+        <p:panelGrid>
+            <f:facet name="header" >
+                <p:row>
+                    <p:column>Column </p:column>
+                    <p:column>Description</p:column>
+                </p:row>
+            </f:facet>
+
+            <p:row>
+                <p:column> Exp # </p:column>
+                <p:column> Experiment Number  </p:column>
+            </p:row>
+            <p:row>
+                <p:column> Size </p:column>
+                <p:column> Number of vertices in the generated graph </p:column>
+            </p:row>
+            <p:row>
+                <p:column>  Cycles </p:column>
+                <p:column>  Was the graph generated with Cycles? </p:column>
+            </p:row>
+            <p:row>
+                <p:column>  Algorithm </p:column>
+                <p:column>  Name of the algorithm </p:column>
+            </p:row>
+            <p:row>
+                <p:column>  Result </p:column>
+                <p:column>  Result from the algorithm: true if the graph has cycles. This must match the 'Cycles' column. </p:column>
+            </p:row>
+            <p:row>
+                <p:column>  Exec Time </p:column>
+                <p:column> Execution time in milliseconds</p:column>
+            </p:row>
+        </p:panelGrid>
+</ui:composition>

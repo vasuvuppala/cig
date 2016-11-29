@@ -29,7 +29,7 @@ import javax.ws.rs.core.Application;
 /**
  * RESTful service for CiG
  * 
- * @author vvuppala
+ * @author  <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 @javax.ws.rs.ApplicationPath("/api")
 public class CIGService extends Application {

@@ -24,10 +24,7 @@
 package com.sainscorp.cig.gui;
 
 import com.sainscorp.cig.alg.Algorithm;
-import com.sainscorp.cig.alg.CycleDetector;
-import com.sainscorp.cig.alg.DiscardDeadends;
 import com.sainscorp.cig.alg.Graph;
-import com.sainscorp.cig.alg.TraversePath;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +41,9 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 /**
- * Presenter for results
+ * Presenter for results view
  *
- * @author vvuppala
+ * @author  <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 @Named
 @ViewScoped
@@ -163,15 +160,29 @@ public class ResultPresenter implements Serializable {
 
     }
 
+    /**
+     * Callback when user cancels the experiment
+     * 
+     */
     public void onCancel() {
         cancelExperiment = true;
         progress = 0;
     }
 
+    /**
+     * Callback on completion
+     * 
+     */
     public void onComplete() {
         showMessage(FacesMessage.SEVERITY_INFO, "Exerpiemnts completed", "Check the results!");
     }
 
+    /**
+     * Create a bar chart
+     * 
+     * @param cycles - true: with cycles, false: without cycles
+     * @return 
+     */
     private BarChartModel initBarChart(boolean cycles) {
         BarChartModel model = new BarChartModel();
  
@@ -197,21 +208,14 @@ public class ResultPresenter implements Serializable {
         return model;
     }
      
+    /**
+     * create bar charts for graphs with cycle and without cycles
+     * 
+     */
     private void createBarChart() {
         LOGGER.log(Level.INFO, "Creating the bar chart");
         barChartForCyclic = initBarChart(true);
         barChartForAcyclic = initBarChart(false);
-         
-//        barChart.setTitle("Cycles in Graphs");
-//        barChart.setLegendPosition("ne");
-//         
-//        Axis xAxis = barChart.getAxis(AxisType.X);
-//        xAxis.setLabel("Experiment");
-//         
-//        Axis yAxis = barChart.getAxis(AxisType.Y);
-//        yAxis.setLabel("Exec Time (ms)");
-        // yAxis.setMin(0);
-        // yAxis.setMax(1000);
     }
     
     /**

@@ -13,7 +13,7 @@
     xmlns:h="http://java.sun.com/jsf/html">
 
     <p:dialog id="aboutPanel"  header="About #{msgs.title}" widgetVar="aboutPanelWid"  
-              hideEffect="clip"  modal="true" width="400"> 
+              hideEffect="clip"  modal="true" width="400" position="center top"> 
         <p:panelGrid>            
             <p:row>  
                 <p:column>Version</p:column>  
@@ -41,7 +41,7 @@
                  
             <p:row>  
                 <p:column>Support </p:column>  
-                <p:column>Send Email to <a href="mailto:#{msgs.supportEmail}?Subject=Subject=#{msgs.title}: Feedback">Support Team</a></p:column>    
+                <p:column>Send Email to <a href="mailto:#{msgs.supportEmail}?Subject=#{msgs.title}: Feedback">Support Team</a></p:column>    
             </p:row>
            
         </p:panelGrid>

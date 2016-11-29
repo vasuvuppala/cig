@@ -31,59 +31,29 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Tests for CiG Algorithms and Graphs
  *
- * @author vasu
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class GraphTest {
-    
+
     public GraphTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of newInstance method, of class Graph.
-     */
-    @Test
-    public void testNewInstance_int() {
-        System.out.println("newInstance");
-        int vertices = 5;
-        Graph expResult = null;
-        Graph result = Graph.newInstance(vertices);
-        // assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // System.out.print(result);
-        // fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of newInstance method, of class Graph.
-     */
-    @Test
-    public void testNewInstance_int_boolean() {
-        System.out.println("newInstance");
-        int vertices = 10;
-        boolean noCycle = true;
-        Graph expResult = null;
-        Graph result = Graph.newInstance(vertices, noCycle);
-        // assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        System.out.print(result);
-        // fail("The test case is a prototype.");
     }
 
     /**
@@ -97,33 +67,24 @@ public class GraphTest {
         int expResult = vertices;
         int result = instance.getNumOfVertices();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
     }
-    
+
     /**
-     * Test of getNumOfVertices method, of class Graph.
+     * Test cycle detection
+     * 
      */
     @Test
-    public void testDetecCycle() {
-        System.out.println("detect cycle");
+    public void testDetectCycle() {
+        System.out.println("Detect cycle");
         int vertices = 10;
         Graph instance = Graph.newInstance(vertices, true);
         System.out.print(instance);
         boolean expResult = false;
-        boolean result = instance.hasCycle(new TraversePath());
-        assertEquals(expResult, result);
-        
-        result = instance.hasCycle(new DiscardDeadends());
-        assertEquals(expResult, result);
-        
-//        instance = Graph.newInstance(vertices, false);
-//        System.out.print(instance);
-//        expResult = false;
-//        result = instance.detectCycle();
-//        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
+
+        for (Algorithm algo : Algorithm.currentAlgorithms()) {
+            System.out.println("Checking " + algo.getName());
+            boolean result = instance.hasCycle(algo.getAlgorithm());
+            assertEquals(expResult, result);
+        }
     }
 }

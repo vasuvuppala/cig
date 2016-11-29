@@ -9,9 +9,9 @@
 
     <ui:define name="content" >
 
-        <ui:param name="restRoot" value="#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{msgs.restURIbase}/v#{msgs.apiversion}" />    
+        <ui:param name="restRoot" value="#{request.scheme}://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{msgs.restURIbase}" />    
 
-        
+        <div class="userManual">
             <h1> CiG: Application Programming Interface</h1>
 
             <h3>Introduction</h3>
@@ -43,7 +43,7 @@
 
             <h3>Encryption</h3>
             #{msgs.title} API forces the use of HTTPS protocol. If HTTP is used, it will be redirected over to HTTPS. 
-            
+
             <h3>CORS</h3>
             For security reasons, #{msgs.title} API does not support <a href="#{msgs.cors}" target="_blank">Cross-origin Resource Sharing</a> (CORS).
 
@@ -53,7 +53,7 @@
             <ui:include src="api.xhtml" />
 
             <ui:include src="examples.xhtml" />
-            
+
             <h3>References</h3>
             <ol>
                 <li>
@@ -66,7 +66,7 @@
                     Roy Thomas Fielding, PhD Dissertation, 2000.
                 </li>
             </ol>
-        
+        </div>
     </ui:define>
 
 </ui:composition>

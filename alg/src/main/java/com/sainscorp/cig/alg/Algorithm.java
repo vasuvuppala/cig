@@ -27,14 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The current cycle detection algorithms
+ * The implemented cycle detection algorithms
  *
- * @author vvuppala
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class Algorithm {
 
-    private final String name;
-    private final CycleDetector algorithm;
+    private final String name; // name of the algorithm
+    private final CycleDetector algorithm; // the implmentation
 
     public Algorithm(String name, CycleDetector algorithm) {
         this.name = name;
@@ -49,10 +49,16 @@ public class Algorithm {
         return algorithm;
     }
 
+    /**
+     * Current implemented algorithms
+     * 
+     * @return list of algorithms
+     */
     public static List<Algorithm> currentAlgorithms() {
         List<Algorithm> algorithms = new ArrayList<>();
         algorithms.add(new Algorithm("Traverse Paths", new TraversePath()));
         algorithms.add(new Algorithm("Discard Deadends", new DiscardDeadends()));
+        
         return algorithms;
     }
 }

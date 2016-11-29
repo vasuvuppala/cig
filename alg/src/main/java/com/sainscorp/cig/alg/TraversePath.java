@@ -27,8 +27,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author vvuppala
+ * Find cycles by checking the connected set of each vertex
+ * 
+ * Connected set of a vertex v is all the vertices that can be reached from v. 
+ * ConnectedSet(v) = { x | x is a vertex and there is a path from v to x}
+ *   <ol>
+ *       <li>For each vertex v, compute its connected set </li>
+ *       <li>Check if v belongs to ConnectedSet(v). If it does then the graph has a cycle in it.</li>
+ *       <li>If no vertex belongs to its own connected set then the graph does not have a cycle.</li>
+ *   </ol>
+ * 
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class TraversePath implements CycleDetector {
     private static final Logger LOGGER = Logger.getLogger(TraversePath.class.getCanonicalName());

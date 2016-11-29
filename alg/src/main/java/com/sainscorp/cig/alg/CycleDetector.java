@@ -26,7 +26,15 @@ package com.sainscorp.cig.alg;
 /**
  * Detects cycles in a graph
  * 
- * @author vvuppala
+ * ToDo: replace with lambdas?
+ * 
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
+ */
+
+/**
+ * Method to detect cycles
+ * 
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public interface CycleDetector {
     public boolean detectCycle(Graph graph);

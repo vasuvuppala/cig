@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 /**
  * Result of an experiment.
  * 
- * @author vasu
+ * @author  <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Result {
@@ -44,6 +44,15 @@ public class Result {
 
         }
 
+        /**
+         * Generate a new instance of result record
+         * 
+         * @param exp - experiment number
+         * @param name - name of the algorithm
+         * @param size - size of the graph
+         * @param withCycles - graph created with cycles
+         * @return result record
+         */
         public static Result newInstance(int exp, String name, int size, boolean withCycles) {
             Result result = new Result();
             result.experiment = exp;

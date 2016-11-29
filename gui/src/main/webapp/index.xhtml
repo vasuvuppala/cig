@@ -5,145 +5,149 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template/template.xhtml">
 
-    <ui:define name="content">          
-        <h3 id='introduction'>
-            Introduction
-            <p:graphicImage title="Gestaltism"  value="#{resource['images/gestalt.png']}" style='float: right' rendered="true"/> 
+    <ui:define name="content">    
+        <div class="userManual">
+            <h2 id='introduction'>
+                Introduction
+                <p:graphicImage title="Gestaltism"  value="#{resource['images/gestalt.png']}" style='float: right' rendered="true"/> 
+            </h2>
+            <p>
+                This application compares performance of different algorithms to check if a directed graph has a cycle.                  
+                It generates a random directed graph, runs the algorithms against the graph, and compares their execution time.
+                For the sake of simplicity, it is assumed that the graphs are connected.
+                Currently, it implements the following algorithms:
 
-        </h3>
-        <p>
-            This application compares performance of different algorithms to check if a directed graph has a cycle in it. 
-            It generates a random directed graph and then runs the algorithms against the graph and compares their execution time.
-            Currently, it implements the following algorithms:
+                <h3>Traverse Paths:</h3>
+                Connected set of a vertex v is all the vertices that can be reached from v. 
+                ConnectedSet(v) = { x | x is a vertex and there is a path from v to x}
+                <ol>
+                    <li>For each vertex v, compute its connected set </li>
+                    <li>Check if v belongs to ConnectedSet(v). If it does then the graph has a cycle in it.</li>
+                    <li>If no vertex belongs to its own connected set then the graph does not have a cycle.</li>
+                </ol>
+                This algorithm has the complexity of O(n * e), where n is the number of vertices and e is the number of edges in the graph.
 
-            Traverse Paths: 
-            1. For each vertex v, compute its connected set i.e. all the vertices that can be reached from v. 
-            ConnectedSet(v) = { x | there is a path from v to x}
+                <h3>Discard Deadends:</h3>
+                Out-degree of a vertex is the number of outgoing edges incident on the vertex. A deadend is a vertex with zero out-degree. 
+                A deadend cannot be part of a cycle.
+                If a (connected) directed graph does not have a deadend, then it must have a cycle. 
 
-            2. Check if v belongs to ConnectedSet(v). If it does then the graph has a cycle in it. 
-            3. If no vertex belongs to its own connected set then the graph does not have a cycle.
+                <ol>
+                    <li>Compute the outdegree of each vertex. </li>
+                    <li>For each edge (v, d) where d is a deadend, reduce the outdegree of vertex v (i.e remove the deadends from the graph).</li>
+                    <li>Repeat the above step until no deadends are left in the graph.</li>
+                    <li>If all vertices in the graph are deadends it doed not have cycles, otherwise it does.</li>
+                </ol>
+                This algorithm has the complexity of O(n + e), where n is the number of vertices and e is the number of edges in the graph.
 
-            This algorithm has the complexity of O(n * e), where n is the number of vertices and e is the number of edges in the graph.
+            </p>
 
+            <h2> Setup </h2>
+            <p>
+                The methodology is as follows:
+                <ol>
+                    <li>Generate a random directed graph</li>
+                    <li>Run the algorithms on the graph a number of times (repetitions). Note down the average execution time. Also check if the results from the algorithms are accurate.</li>
+                    <li>Repeat the process with graphs a number of times (iterations) with different sized graphs, both with and without cycles.</li>
+                </ol>
+            </p>
+            Current settings: <h:outputText  id="settingsInfo" styleClass="fa fa-sliders"/>
+            <p:overlayPanel for="settingsInfo" showEvent="mouseover" hideEvent="mouseout" style="width: 25%">
+                <ui:include src="settings.xhtml" />                                   
+            </p:overlayPanel>
 
-            Discard Deadends:
-            1. Compute the outdegree of each vertex. Outdegree of a vertex is the number of outgoing edges incident on the vertex.
-            2. Remove vertices with zero outdegree from the graph. These are the deadends; they cannot be part of any cycle. 
-            3. Also remove all the edges that are incident on the deadend vertices.
-            4. Repeat steps 1-3 until no deadends are left in the graph. 
-            5. If the graph is empty, then it does not have cycles, otherwise it does. 
+            <h2>
+                Run the algorithms
+            </h2>
+            You may start the experiments by clicking on the start button below. Once the experiments are run, the results will appear in the results table.
 
-            If a directed graph does not have a deadend, then it must have a cycle. 
+            <p:spacer height="10"/>
+            <h:form id="resultsForm">
 
-        </p>
+                <p:panel id="results" header="Results"  toggleable="true" >
+                    <p:panelGrid columns="4" styleClass="noBorders">
+                        <p:commandButton title="Start Experiments" icon="ui-icon-play" action="#{resultPresenter.runExperiments()}" async="true" 
+                                         onclick="PF('pbAjax').start();PF('startButton2').disable();" 
+                                         widgetVar="startButton2" />
 
-        
-        <h2> Setup </h2>
-        <p>
-            The methodology is as follows:
-            1. Generate a random directed graph
-            2. Run the algorithms on the graph a number of times (repetitions). Note down the average execution time. Also check if the results from the algorithms are accurate.
-            3. Repeat the process with graphs a number of times (iterations) with different sized graphs, both with and without cycles.
-        </p>
-        <p>
-            Current settings are:
-            1. Number of iterations: 
-            2. Initial graph size: 
-            2. Graph-size multiplier for each iteration:
-            3. Number of repetitions:
-            
-            In future versions, users will be able to modify the settings.
-        </p>
-        
-        <h2>
-            Run the algorithms
-        </h2>
-        <h:form>
-            <p:panelGrid columns="3" styleClass="noBorders">
+                        <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" 
+                                       labelTemplate="{value}%" styleClass="animated" global="false"  
+                                       interval="50" style="width: 500px">
+                            <p:ajax event="complete" listener="#{resultPresenter.onComplete}" 
+                                    oncomplete="PF('startButton2').enable()" update="resultsForm"/>
+                        </p:progressBar>
 
-                <p:commandButton value="Start"  action="#{resultPresenter.runExperiments()}" async="true" onclick="PF('pbAjax').start();PF('startButton2').disable();" widgetVar="startButton2" />
+                        <p:commandButton title="Cancel" icon="ui-icon-stop" actionListener="#{resultPresenter.onCancel()}" 
+                                         oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
+                        <h:outputText  id="resultColumnInfo" styleClass="fa fa-table"/>
+                    </p:panelGrid>
+                    <p:overlayPanel for="resultColumnInfo" showEvent="mouseover" hideEvent="mouseout" style="width: 25%">
+                        <ui:include src="result-columns.xhtml" />                                   
+                    </p:overlayPanel>
 
-                <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" 
-                               labelTemplate="{value}%" styleClass="animated" global="false"  interval="5" style="width: 300px">
-                    <p:ajax event="complete" listener="#{resultPresenter.onComplete}" oncomplete="PF('startButton2').enable()" update="resultsForm"/>
-                </p:progressBar>
+                    <p:dataTable id="resultsTable" var="item" value="#{resultPresenter.experimentResults}" 
+                                 rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}"
+                                 emptyMessage="You must  run the experiments first" styleClass="ccdbDataTable">
+                        <p:column headerText="Exp #" sortBy="#{item.experiment}" width="8%">
+                            <h:outputText value="#{item.experiment}"/>
+                        </p:column>
+                        <p:column headerText="Size" sortBy="#{item.graphSize}" width="15%">
+                            <h:outputText value="#{item.graphSize}"/>
+                        </p:column>
+                        <p:column headerText="Cycles" sortBy="#{item.withCycles}" width="15%">
+                            <h:outputText value="#{item.withCycles}"/>
+                        </p:column>
+                        <p:column headerText="Algorithm" sortBy="#{item.algorithmName}" filterBy="#{item.algorithmName}"  >
+                            <h:outputText value="#{item.algorithmName}"/>
+                        </p:column>
+                        <p:column headerText="Result"  width="10%">
+                            <h:outputText value="#{item.hasCycles}"/>
+                        </p:column>
+                        <p:column headerText="Exec Time (ms)" sortBy="#{item.execTime}" >
+                            <h:outputText value="#{item.execTime}" styleClass="colRight">
+                                <f:convertNumber type="number" minFractionDigits="3"/>
+                            </h:outputText>                            
+                        </p:column>
+                    </p:dataTable>
+                    <ui:fragment rendered="#{not empty resultPresenter.experimentResults}" >
+                        <h:commandLink>
+                            <p:graphicImage name="images/excel.png" title="Download as Excel"/>
+                            <p:dataExporter type="xls" target="resultsTable" fileName="cig" />
+                        </h:commandLink>
 
-                <p:commandButton value="Cancel" actionListener="#{resultPresenter.onCancel()}" oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
+                        <h:commandLink rendered="false">
+                            <p:graphicImage name="images/pdf.png" title="Download as PDF"/>
+                            <p:dataExporter type="pdf" target="resultsTable" fileName="cig"  />
+                        </h:commandLink>
 
-            </p:panelGrid>
-        </h:form>   
+                        <h:commandLink>
+                            <p:graphicImage name="images/csv.png"  title="Download as CSV"/>
+                            <p:dataExporter type="csv" target="resultsTable" fileName="cig"  />
+                        </h:commandLink>
 
-        <h2>
-            Check Results
-        </h2>
+                        <h:commandLink>
+                            <p:graphicImage name="images/xml.png" title="Download as XML"/>
+                            <p:dataExporter type="xml" target="resultsTable" fileName="cig" />
+                        </h:commandLink>
+                    </ui:fragment>
+                    <p:spacer height="30"/>
+                    <p:separator />
+                    <p:chart type="bar" model="#{resultPresenter.barChartForAcyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForAcyclic}"/>
 
-        <h:form id="resultsForm">
+                    <p:spacer height="30"/>
+                    <p:separator />
+                    <p:chart type="bar" model="#{resultPresenter.barChartForCyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForCyclic}"/>
+                </p:panel>
 
-            <p:panel id="results" header="Results"  toggleable="true" rendered="#{not empty resultPresenter.experimentResults}">
-                <p:dataTable id="resultsTable" var="item" value="#{resultPresenter.experimentResults}" 
-                             rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}"
-                             rendered="#{not empty resultPresenter.experimentResults}">
-                    <p:column headerText="Exp #" sortBy="#{item.experiment}" width="8%">
-                        <h:outputText value="#{item.experiment}"/>
-                    </p:column>
-                    <p:column headerText="Size" sortBy="#{item.graphSize}" width="15%">
-                        <h:outputText value="#{item.graphSize}"/>
-                    </p:column>
-                    <p:column headerText="With Cycles" sortBy="#{item.withCycles}" width="10%">
-                        <h:outputText value="#{item.withCycles}"/>
-                    </p:column>
-                    <p:column headerText="Algorithm" sortBy="#{item.algorithmName}" filterBy="#{item.algorithmName}">
-                        <h:outputText value="#{item.algorithmName}"/>
-                    </p:column>
-                    <p:column headerText="Has Cycles"  width="10%">
-                        <h:outputText value="#{item.hasCycles}"/>
-                    </p:column>
-                    <p:column headerText="Exec Time (ms)" sortBy="#{item.execTime}" >
-                        <h:outputText value="#{item.execTime}" style="float: right">
-                            <f:convertNumber type="number" minFractionDigits="3"/>
-                        </h:outputText>                            
-                    </p:column>
-                </p:dataTable>
-                <h:commandLink>
-                    <p:graphicImage name="images/excel.png" title="Download as Excel"/>
-                    <p:dataExporter type="xls" target="resultsTable" fileName="cig" />
-                </h:commandLink>
+            </h:form>
 
-                <h:commandLink>
-                    <p:graphicImage name="images/pdf.png" title="Download as PDF"/>
-                    <p:dataExporter type="pdf" target="resultsTable" fileName="cig"  />
-                </h:commandLink>
+            <h2>API </h2>
+            <p>
+                The experiments can be invoked through an Application Programming Interface. Its details are given in
+                <p:link href='/rest' target="_blank">The CiG API Manual</p:link>.
 
-                <h:commandLink>
-                    <p:graphicImage name="images/csv.png"  title="Download as CSV"/>
-                    <p:dataExporter type="csv" target="resultsTable" fileName="cig"  />
-                </h:commandLink>
-
-                <h:commandLink>
-                    <p:graphicImage name="images/xml.png" title="Download as XML"/>
-                    <p:dataExporter type="xml" target="resultsTable" fileName="cig" />
-                </h:commandLink>
-
-                <p:spacer height="30"/>
-                <p:separator />
-                <p:chart type="bar" model="#{resultPresenter.barChartForAcyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForAcyclic}"/>
-
-                <p:spacer height="30"/>
-                <p:separator />
-                <p:chart type="bar" model="#{resultPresenter.barChartForCyclic}" style="height:300px" rendered="#{not empty resultPresenter.barChartForCyclic}"/>
-            </p:panel>
-
-        </h:form>
-
-        <h2>
-            API                
-        </h2>
-        <p>
-            The experiments can be invoked through an Application Programming Interface. Its details are available in
-            <p:link href='/rest' target="_blank">The CiG API Manual</p:link>.
-            
-            Examples:
-        </p>
-
+                Examples:
+            </p>
+        </div>
     </ui:define>
 </ui:composition>

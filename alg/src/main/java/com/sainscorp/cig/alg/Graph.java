@@ -26,14 +26,14 @@ package com.sainscorp.cig.alg;
 
 import java.util.BitSet;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A directed graph
- * Graph represented as an Adjacency Matrix
+ * A directed graph.
  * 
- * @author vasu
+ * Graph is represented as an Adjacency Matrix
+ * 
+ * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class Graph {
     private static Logger LOGGER = Logger.getLogger(Graph.class.getCanonicalName());
