@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- 
+   * The MIT License
+ *
+ * Copyright 2016 vvuppala.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+-->
+
+<!--API Manual-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"              
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fc="http://java.sun.com/jsf/composite/comps">
+
+    <h3>Examples</h3>
+
+    <p:panel header='Examples'  toggleable="true">
+        <p:tabView>
+            <p:tab title="Curl">
+                <p>The following curl commands retrieve 'events' and 'summary report' resources respectively:</p>
+                <ul>
+                    <li>
+                        curl -v -k -L -H "Accept: application/json"  -X GET '#{restRoot}/exp
+                    </li>
+                    <li>
+                        curl -v -k -L -H "Accept: application/json"  -X GET '#{restRoot}/exp?size=1000&amp;cycles=true'
+                    </li>
+                </ul>
+            </p:tab>
+            
+            <p:tab title="PHP">
+                <p>The following PHP code snippet retrieves summary report resource in JSON. The API key/passcode has been replaced with dummy string.
+                   The baseUrl in the code should be replaced with appropriate one for your site.
+                </p>
+                <p:separator/>
+                
+                <pre name="code" class="brush:xml">
+var $baseUrl = 'https://sainscorp.com/cig/api/exp?';
+    
+var $headers = array(
+    'http' => array(
+        'method' => "GET"
+    )
+);
+
+// You can optionally add your filter parameters by appending them to the base url.
+// Ex: $url = $this->baseUrl . "size=1000";
+
+// $url = $this->baseUrl . "$key=$value";
+        
+// Creates a stream context
+$context = stream_context_create($this->headers);
+
+// Open the URL with the HTTP headers (fopen wrappers must be enabled)
+$response = file_get_contents($url, false, $context);
+
+return json_decode($response);
+
+                </pre>
+            </p:tab>
+            
+            <p:tab title="JavaScript">
+            <p>The following JavaScript code snippet retrieves summary report resource in JSON. </p>   
+            <p:separator/>
+            
+            <pre name="code" class="brush:xml">
+var request = require('request');
+
+var summary = {};
+
+function getSummary() {
+  request({
+    url: dataconfig.cigexp,
+    strictSSL: false,
+    headers: {
+      Accept: 'application/json'
+    },
+    timeout: 30 * 1000
+  }, function (error, response, body) {
+    if (error) {
+      console.error(error);
+    } else {
+      if (response.statusCode === 200) {
+        summary = body;
+      }
+    }
+  });
+}
+
+app.get('/exp', function (req, res) {
+    getSummary();
+    res.type('json');
+    res.send(summary);
+});
+                </pre>
+            </p:tab> 
+            
+        </p:tabView>
+    </p:panel>
+</ui:composition>

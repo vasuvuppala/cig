@@ -23,11 +23,15 @@
  */
 package com.sainscorp.cig.gui;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * Result of an experiment.
  * 
  * @author vasu
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Result {
     private int experiment; // experiment number
         private String algorithmName;

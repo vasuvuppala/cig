@@ -16,6 +16,11 @@
             <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>  
+        <navigation-case>
+            <from-outcome>api</from-outcome>
+            <to-view-id>/rest/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
     </navigation-rule>
     
 </faces-config>

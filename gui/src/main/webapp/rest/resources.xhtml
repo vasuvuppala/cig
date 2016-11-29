@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"               
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fc="http://java.sun.com/jsf/composite/comps">
+
+    <h3>Resources</h3>
+    <p> A resource is an entity that is managed by CiG. For example, an experiment.
+        The #{msgs.title} API provides access to the resources or entities thatCiG manages. 
+        These entities and their attributes are described below. Note that the names of attributes are important as they are 
+        used in the various representations of these resources (see Resource Representations Section below).</p>
+    
+    <p:panel header='Resources and Attributes' toggleable="true" >
+        <p:panelGrid style="text-align: left">  
+            <f:facet name="header">  
+                <p:row>  
+                    <p:column>Resource</p:column>  
+                    <p:column>Description</p:column>  
+                    <p:column>Attribute</p:column>  
+                    <p:column>Type</p:column> 
+                    <p:column>Description</p:column> 
+                    <p:column>Examples</p:column> 
+                </p:row>  
+            </f:facet> 
+
+            <p:row>
+                <p:column rowspan="6">result</p:column>  
+                <p:column rowspan="6">Result record from an experiment</p:column>  
+                <p:column>experiment</p:column>  
+                <p:column>Integer</p:column> 
+                <p:column>Experiment number</p:column> 
+                <p:column>1</p:column> 
+            </p:row>
+            <p:row>                   
+                <p:column>algorithmName</p:column>                    
+                <p:column>String</p:column> 
+                <p:column>Name of the algorithm used</p:column>  
+                <p:column>Traverse Paths</p:column>                     
+            </p:row>
+            <p:row>                   
+                <p:column>graphSize</p:column>                    
+                <p:column>Integer</p:column> 
+                <p:column>Number of vertices in the randomly generated graph</p:column>  
+                <p:column>1000</p:column>                     
+            </p:row>
+            <p:row>                   
+                <p:column>withCycles</p:column>                    
+                <p:column>Boolean</p:column> 
+                <p:column>Was the random graph generated with cycles?</p:column>  
+                <p:column>true</p:column>                     
+            </p:row>
+            <p:row>                   
+                <p:column>hasCycles</p:column>                    
+                <p:column>Boolean</p:column> 
+                <p:column>Result from the algorithm indicating whether the graph has a cycle or not</p:column>  
+                <p:column>true</p:column>                     
+            </p:row>
+            <p:row>                   
+                <p:column>execTime</p:column>                    
+                <p:column>Float</p:column> 
+                <p:column>Time taken by the algorithm, in milliseconds</p:column>  
+                <p:column>23.678</p:column>                     
+            </p:row>
+
+            <p:row>
+                <p:column rowspan="1">experiment</p:column>  
+                <p:column rowspan="1">Experiment</p:column>  
+                <p:column>results</p:column>  
+                <p:column>List of <i>result</i></p:column> 
+                <p:column>Result records that form the experiment</p:column> 
+                <p:column>See <i>result</i></p:column> 
+            </p:row>
+            
+        </p:panelGrid>
+    </p:panel>
+</ui:composition>

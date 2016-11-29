@@ -23,6 +23,7 @@
  */
 package com.sainscorp.cig.gui;
 
+import com.sainscorp.cig.alg.Algorithm;
 import com.sainscorp.cig.alg.CycleDetector;
 import com.sainscorp.cig.alg.DiscardDeadends;
 import com.sainscorp.cig.alg.Graph;
@@ -53,28 +54,8 @@ public class ResultPresenter implements Serializable {
 
     private final static Logger LOGGER = Logger.getLogger(ResultPresenter.class.getCanonicalName());
 
-    private static class Algorithm {
-
-        private final String name;
-        private final CycleDetector algorithm;
-
-        public Algorithm(String name, CycleDetector algorithm) {
-            this.name = name;
-            this.algorithm = algorithm;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public CycleDetector getAlgorithm() {
-            return algorithm;
-        }
-
-    }
-
     private Graph graph;
-    private List<Algorithm> algorithms = new ArrayList<>();
+    private List<Algorithm> algorithms;
 
     // settings
     private int maxIterations = 2;
@@ -99,9 +80,7 @@ public class ResultPresenter implements Serializable {
 
     @PostConstruct
     public void init() {
-        algorithms.add(new Algorithm("Traverse Paths", new TraversePath()));
-        algorithms.add(new Algorithm("Discard Deadends", new DiscardDeadends()));
-
+        algorithms = Algorithm.currentAlgorithms();
         progressDelta = (double) PROGRESS_MAX / (maxIterations * 2 * repetitions * algorithms.size());
     }
 

@@ -7,15 +7,10 @@
     <h:form id="menuform">
 
         <p:menubar autoDisplay="false" >
-            <p:menuitem value="Home"  outcome="home" icon="ui-icon-home " />                                      
-            <p:menuitem value="Preferences"  url="/prefs/" icon="ui-icon-gear "  disabled="true" /> 
+            <p:menuitem value="Home"  outcome="home" icon="ui-icon-home " /> 
+            <p:menuitem value="API"  outcome="api" icon="ui-icon-script "  />
+            <p:menuitem value="Settings"  url="/prefs/" icon="ui-icon-gear "  disabled="true" /> 
             <p:submenu label="Help" icon="ui-icon-volume-on" style="float: right">
-                <p:menuitem value="Online Help" title="Online Help" 
-                            icon="ui-icon-info" 
-                            url="/help/help.xhtml"   rendered="false"/>   
-
-                <p:menuitem value=" RESTful API" title="API Manual" 
-                            icon="ui-icon-script" target="_blank"  url="/help/api/" />                    
                 <p:menuitem value="Report Problems" id="reportProblem" icon="fa fa-info"  immediate="true"
                             title="Report Problems"  onclick="PF('reportProblemWid').show()" disabled="true"/>
                 <p:menuitem value="About" id="aboutMenu" icon="ui-icon-volume-on"  immediate="true"

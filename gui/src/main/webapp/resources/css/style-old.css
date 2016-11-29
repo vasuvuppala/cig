@@ -11,7 +11,7 @@
 
 
 body {
-    font-size: 12px;
+    font-size: 11px;
     font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif; 
     /*width: 100% !important;*/   
 }
@@ -21,6 +21,18 @@ a {
     color: cadetblue;
 }
 
+/* --- configuration managerment classes ---- */
+.PhaseSummaryGreen {
+    color: green;
+}
+
+.PhaseSummaryRed {
+    color: red;
+}
+
+.PhaseSummaryYellow {
+    color:  #b7b700;
+}
 
 /* -------------------------------------------------------- */
 
@@ -41,35 +53,12 @@ a {
 
 .ui-icon.blueIcon
 {
-    background-image: url("#{resource['images:ui-icons-blue.png']}") !important;
+    background-image: url("#{resource['images:ui-icons-blue.png']}");
 }
 
-/* datatable column alignment*/
-.colRight {
-    float: right !important;
-}
-
-/*TODO:  does not work */
-.colCenter {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.colLeft {
-    float: left !important;
-}
-/* text wrap around in data table*/
-.ui-datatable td {
-    white-space: normal !important;
-}
-
-
-.ui-clock {
-    background: none;
-    border: none;
-    font-weight:  normal !important;
-    font-size: 12px !important;
-    padding: 0px !important;
+/* keep menuitems slightly bigger */
+.ui-menuitem-text {
+    font-size: 110%;
 }
 
 
@@ -77,7 +66,7 @@ a {
 
 .title {
     font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 18px; 
+    font-size: 24px; 
     font-style: normal;
     font-weight: bold; 
     text-decoration: none;
@@ -91,17 +80,8 @@ a {
     color:  #ff0000;
 }
 
-.logDay {
-    color: darkslateblue;
-}
-
-.tableFooter 
-{
-    font-weight: normal;
-}
-
 .headerWidget,
-.headerWidget tr,
+.headerWidget tr, 
 .headerWidget td {
     background-color: transparent !important;
     /*padding-bottom: 0 !important;*/
@@ -110,7 +90,7 @@ a {
 }
 
 
- .plainPanel, .plainPanel > * {
+.plainPanel, .plainPanel > * {
     border: none ;
     vertical-align: top;
     padding: 0px !important;
@@ -135,6 +115,10 @@ a {
     text-align: right;
 }
 
+.floatRight {
+    float: right;
+}
+
 .noBorders>tbody>tr, .noBorders>tbody>tr>td {
     /* background: none; */ 
     border: none !important;
@@ -148,17 +132,37 @@ a {
 
 .noBordersNP>tbody>tr, .noBordersNP>tbody>tr>td {
     /* background: none; */ 
-    border: none !important;
+    border: none !important;   
     padding: 0px !important;
     /* vertical-align: top; */
 }
+
+/* - racks - */
+.matchingSlot {    
+    background-color: azure !important;
+}
+
+.rackPanel, .rackPanel a  {
+    font-size: x-small !important; 
+}
+
+.rackPanel .ui-panelgrid-cell {     
+    padding: 2px 2px 2px 2px;
+}
+
+/* ---- */
 
 .verticalAligned td {
     vertical-align: top;
 }
 
+.alignTop td {
+    vertical-align: top;
+}
+
 .menu {    
-    background-color: transparent !important;
+    /*background-color: transparent;*/
+    margin: 0px;
 }
 
 
@@ -166,41 +170,14 @@ a {
     margin: 5px auto;
 }
 
-.facilityName { 
-    font-weight: bold;
-    /*font-size:  large;*/
-    /*font-style:  italic;*/
-}
-
-.beamName { 
-    font-weight:  normal;
-}
-
-.beamPos { 
-    display: inline-block; 
-    vertical-align:  middle;
-}
-
 .iconDisplay { 
     display: inline-block; 
+    text-decoration: none !important;
+    
 }
 
-.logColumn {
-    padding: 1px !important;
-    /* margin: 3px !important; */
-    text-align: center;
-}
-
-.newEvent {  
-    font-weight: bold !important;
-}
-
-.reportSectionHeading {  
-    font-weight: bold;
-}
-
-.newEventTitle{  
-    font-style:  italic;
+a.iconDisplay { 
+    text-decoration: none !important; 
 }
 
 .thinPanel tr .thinPanel td {
@@ -215,42 +192,49 @@ a {
     text-align: center;
 }
 
-.eventInfo {
-    border: none;
-    background:  transparent;
-    padding: 0;
+.ui-datatable.ccdbDatatable tbody,
+.ui-datatable.ccdbDatatable th,
+.ui-datatable.ccdbDatatable th
+.ui-datatable.ccdbDatatable td {
+    font-size: 10pt;
+    white-space: normal; /* text wrap around */
+
 }
 
-.reportTotals {
-    font-weight:  bold;
-}
-/* facility summary color codes */
-.SOF {
-    color: #333333;
+.ui-treetable.ccdbTreetable tbody,
+.ui-treetable.ccdbTreetable th,
+.ui-treetable.ccdbTreetable th
+.ui-treetable.ccdbTreetable td {
+    font-size: 10pt;
+    white-space: normal; /* text wrap around */
+
 }
 
-.UOF {
-    color: #ff0000;
+.ui-datatable.ccdbProperty tbody,
+.ui-datatable.ccdbProperty th,
+.ui-datatable.ccdbProperty th
+.ui-datatable.ccdbProperty td {
+    font-size: x-small;
+    white-space: normal; /* text wrap around */   
+    vertical-align: top;
 }
 
-.PDT {
-    color: #eeaa00;
+.phaseStatus {
+    text-align:  left !important;
+    word-wrap: break-word;
+    white-space: normal !important; /* text wrap around */    
 }
 
-.SDT {
-    color: #ddcc00;
+.horizontal { 
+    display: inline;
+    float : left;
+    width: 70px;
+    padding: 0px 0px;
 }
 
-.IDT {
-    color: #eeaa00;
-}
-
-.EXR {
-    color: #33aa00;
-}
-
-.XDT {
-    color: #66aa88;
+.ui-datalist-data {
+    height:20px;
+    overflow:auto;
 }
 
 /* -------------------------------------------------- */
@@ -267,11 +251,11 @@ a {
 }
 
 #content {
-    margin: 5px; 
+    margin: 15px;     
     /* padding: 10px; */
     /*width: 98%;*/
-/*    margin-left: auto;
-    margin-right: auto;*/
+    /*    margin-left: auto;
+        margin-right: auto;*/
     /* border: 0px solid LightGray; */
     /* border-radius: 7px; */
     /* box-shadow: 0 0 7px 2px #888888; */
@@ -287,11 +271,21 @@ a {
     padding: 0px;
     border: 0px solid LightGray;
     border-radius: 0px;
-    box-shadow: 2px 2px 0px 0px #BDBDBD; 
-    color:  lightgray;
+    box-shadow: 2px 2px 5px 2px #888888; 
+    color: black;
     /* text-align: left; */
     /* width: 80%; */
     /* background-color: #FFFFFF;  */
+}
+
+.boxf {
+    margin: 0px; 
+    padding: 10px;
+    border: 0px solid #000000;
+    color: black;
+    width: 90%;
+    margin: 0  auto;
+    /* background-color: #FFFFFF; */
 }
 
 #bottom {
@@ -300,4 +294,10 @@ a {
     /*padding: 5px;*/
     /*margin: 10px 0px 0px 0px;*/
     text-align:  center;
+}
+
+/* Global defaults for primefaces widgets*/
+
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 10pt;
 }

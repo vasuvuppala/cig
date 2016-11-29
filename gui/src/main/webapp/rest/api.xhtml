@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- 
+  * The MIT License
+ *
+ * Copyright 2016 vvuppala.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+-->
+
+<!--API Manual-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://java.sun.com/jsf/facelets"              
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fc="http://java.sun.com/jsf/composite/comps">
+
+    <h3>API</h3>
+    <p>The following table lists the interfaces to manage CiG resources. It lists the resource name, 
+        its URI, the HTTP method, its parameters, and the response from the API to the method. </p>
+    <p:panel header='Application Programming Interface'  toggleable="true">
+        <p:panelGrid style="text-align: left">  
+            <f:facet name="header">  
+                <p:row>  
+                    <p:column>Resource</p:column>  
+                    <p:column>Method</p:column>  
+                    <p:column>Resource ID</p:column>  
+                    <p:column>Description</p:column> 
+                    <p:column>Returns</p:column>
+                    <p:column>Parameters</p:column> 
+                    <p:column>Examples</p:column> 
+                </p:row>  
+            </f:facet>  
+            <p:row>  
+                <p:column>Experiment</p:column>
+                <p:column>GET</p:column>  
+                <p:column>/exp</p:column>  
+                <p:column>Experiment details</p:column> 
+                <p:column>List of <i>result</i></p:column>
+                <p:column>
+                    <ul><li><b>size</b> (required): Name of the facility</li></ul>
+                    <ul><li><b>size</b> (optional): Number of vertices in the randomly generated graph.</li></ul>
+                    <ul><li><b>cycles</b> (optional): Should the random graph be generated with cycles? true or false</li></ul>
+
+                </p:column> 
+                <p:column>
+                    <ul><li>#{restRoot}/exp</li></ul>
+                    <ul><li>#{restRoot}/exp?size=1000&amp;cycles=false</li></ul>
+                    <ul><li>#{restRoot}/exp?size=5000&amp;cycles=true</li></ul>
+
+                </p:column> 
+            </p:row>              
+        </p:panelGrid>
+    </p:panel>
+</ui:composition>
