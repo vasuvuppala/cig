@@ -10,6 +10,12 @@ Currently, it implements two algorithms.
 1.  alg: this directory contains the algorithms
 2.  gui: this directory contains the web-based app and restful service
 
+## Build
+
+1. CiG uses maven. In the root directory, run 'mvn package'
+2. The war file will be generated in gui/target
+3. Deploy the war file on a Java EE server (Glassfish, Wildfly etc)
+
 ## Contributing
 
 1. Fork it!
