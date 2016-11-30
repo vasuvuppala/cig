@@ -35,10 +35,21 @@
             <artifactId>poi</artifactId>
             <version>3.15</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
-            <version>4.2.1</version>
+            <version>2.1.7</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
