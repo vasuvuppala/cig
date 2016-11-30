@@ -42,7 +42,7 @@
                 <p>The following curl commands retrieve 'events' and 'summary report' resources respectively:</p>
                 <ul>
                     <li>
-                        curl -v -k -L -H "Accept: application/json"  -X GET '#{restRoot}/exp
+                        curl -v -k -L -H "Accept: application/json"  -X GET '#{restRoot}/exp'
                     </li>
                     <li>
                         curl -v -k -L -H "Accept: application/json"  -X GET '#{restRoot}/exp?size=1000&amp;cycles=true'
@@ -57,7 +57,7 @@
                 <p:separator/>
                 
                 <pre name="code" class="brush:xml">
-var $baseUrl = 'https://sainscorp.com/cig/api/exp?';
+var $baseUrl = 'https://serverXXX.aws.com/cig/api/exp?';
     
 var $headers = array(
     'http' => array(

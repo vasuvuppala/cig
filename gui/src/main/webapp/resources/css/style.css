@@ -210,6 +210,7 @@ a {
 }
 
 #bottom {
+    margin: 10px 0px 50px 0px;; 
     position: relative;
     color:  #009999;
     /*padding: 5px;*/
