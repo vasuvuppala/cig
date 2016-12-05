@@ -4,12 +4,12 @@
     <parent>
         <artifactId>CIG</artifactId>
         <groupId>com.sainscorp</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sainscorp</groupId>
     <artifactId>gui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>CiG GUI</name>

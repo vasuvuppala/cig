@@ -26,6 +26,7 @@ package com.sainscorp.cig.alg;
 
 import java.util.BitSet;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -37,6 +38,7 @@ import java.util.logging.Logger;
  */
 public class Graph {
     private static Logger LOGGER = Logger.getLogger(Graph.class.getCanonicalName());
+    public static final int MAX_GRAPH_SIZE = 10000; // maximum graph size (chosen aribitrarily). ToDo: base it on the available memory etc
     
     private int numOfVertices;
     // ToDo: Better to have an array of bitsets? 
@@ -54,6 +56,10 @@ public class Graph {
      * @return 
      */
     public static Graph newInstance(int vertices) {
+        if (vertices > MAX_GRAPH_SIZE) {
+            LOGGER.log(Level.WARNING, "Desired graph size too big. Max allowed is {0}", MAX_GRAPH_SIZE);
+            return null;
+        }
         Graph graph = new Graph();
         graph.numOfVertices = vertices;
         graph.adjMatrix = new BitSet[vertices];
@@ -73,6 +79,10 @@ public class Graph {
      */
     public static Graph newInstance(int vertices, boolean noCycle) {
         Graph graph = Graph.newInstance(vertices);
+        if (graph == null) {
+            return null;
+        }
+        
         Random random = new Random();       
         
         for(int i = 0; i < vertices; i++) {

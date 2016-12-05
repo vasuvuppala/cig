@@ -29,6 +29,8 @@ import java.util.List;
 /**
  * The implemented cycle detection algorithms
  *
+ * ToDo: Use ServieLoader or CDI to find the implementations automatically.
+ * 
  * @author <a href="mailto:vuppala@gmail.com">Vasu Vuppala</a>
  */
 public class Algorithm {
@@ -56,7 +58,7 @@ public class Algorithm {
      */
     public static List<Algorithm> currentAlgorithms() {
         List<Algorithm> algorithms = new ArrayList<>();
-        algorithms.add(new Algorithm("Traverse Paths", new TraversePath()));
+        algorithms.add(new Algorithm("Traverse Paths", new TraversePath())); //ToDo: Use ServieLoader or CDI to find the implementations automatically.
         algorithms.add(new Algorithm("Discard Deadends", new DiscardDeadends()));
         
         return algorithms;

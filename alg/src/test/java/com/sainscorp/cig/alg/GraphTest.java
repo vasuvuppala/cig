@@ -61,14 +61,27 @@ public class GraphTest {
      */
     @Test
     public void testGetNumOfVertices() {
-        System.out.println("getNumOfVertices");
-        int vertices = 10000;
+        System.out.println("Number Of Vertices");
+        int vertices = 4000;
         Graph instance = Graph.newInstance(vertices);
         int expResult = vertices;
         int result = instance.getNumOfVertices();
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test large graphs.
+     */
+    @Test
+    public void testLargeGraphs() {
+        System.out.println("Large graphs");
+        int vertices = Graph.MAX_GRAPH_SIZE + 10;
+        Graph result = Graph.newInstance(vertices);
+        Graph expResult = null;
+        
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test cycle detection
      * 

@@ -34,7 +34,9 @@ import javax.ws.rs.Path;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -75,6 +77,9 @@ public class ExperimentResource {
 
         Result result;
         Graph graph = Graph.newInstance(size, !cycles);
+        if (graph == null) {
+            throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity("Invalid input: size too big").type(MediaType.TEXT_HTML).build());        
+        }
         for (Algorithm algo : algorithms) {
             startTime = System.nanoTime();
             hasCycles = graph.hasCycle(algo.getAlgorithm());
