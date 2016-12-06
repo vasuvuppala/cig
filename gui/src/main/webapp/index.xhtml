@@ -67,18 +67,18 @@
                 <p:panel id="experiments" header="Experiments"  toggleable="true" >
                     <p:panelGrid columns="4" styleClass="noBorders">
                         <p:commandButton title="Start Experiments" icon="ui-icon-play" action="#{resultPresenter.runExperiments()}" async="true" 
-                                         onclick="PF('pbAjax').start();PF('startButton2').disable();" 
-                                         widgetVar="startButton2" />
+                                         onclick="PF('pbAjax').start();PF('startButton').disable();PF('cancelButton').enable();" 
+                                         widgetVar="startButton" />
 
                         <p:progressBar widgetVar="pbAjax" ajax="true" value="#{resultPresenter.progress}" 
                                        labelTemplate="{value}%" styleClass="animated" global="false"  
                                        interval="50" style="width: 500px">
                             <p:ajax event="complete" listener="#{resultPresenter.onComplete}" 
-                                    oncomplete="PF('startButton2').enable()" update="resultsForm"/>
+                                    oncomplete="PF('startButton').enable();PF('cancelButton').disable();" update="resultsForm"/>
                         </p:progressBar>
 
                         <p:commandButton title="Cancel" icon="ui-icon-stop" actionListener="#{resultPresenter.onCancel()}" 
-                                         oncomplete="PF('pbAjax').cancel();PF('startButton2').enable();" />
+                                         oncomplete="PF('pbAjax').cancel();PF('startButton').enable();" widgetVar="cancelButton"/>
                         <h:outputText  id="resultColumnInfo" styleClass="fa fa-table"/>
                     </p:panelGrid>
                     <p:overlayPanel for="resultColumnInfo" showEvent="mouseover" hideEvent="mouseout" style="width: 25%">

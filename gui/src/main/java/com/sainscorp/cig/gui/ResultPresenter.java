@@ -81,6 +81,7 @@ public class ResultPresenter implements Serializable {
         progressDelta = (double) PROGRESS_MAX / (maxIterations * 2 * repetitions * algorithms.size());
     }
 
+    
     /**
      * Execute the given algorithm on the given graph a few ('repetitions')
      * times.
@@ -123,6 +124,17 @@ public class ResultPresenter implements Serializable {
     }
 
     /**
+     * Initialize for the experiments run
+     */
+    private void initializeRun() {
+        cancelExperiment = false;
+        experimentResults.clear();
+        progress = 0;
+        realProgress = 0.0;
+        progressDelta = 0.0;
+    }
+    
+    /**
      * Run the experiments: generate graphs with different sizes and
      * with/without cycles, and then run the various algorithms on the graph.
      *
@@ -133,7 +145,7 @@ public class ResultPresenter implements Serializable {
         Result result;
 
         try {
-            experimentResults.clear();
+            initializeRun();
             for (int iteration = 0; iteration < maxIterations; iteration++, size *= multiplier) { // generate graph of different sizes;
                 for (int cycle = 0; cycle < 2; cycle++) {  // generate graph with and without cycles
                     boolean noCycles = (cycle == 0); // arbitarily pick to have or not have cycles in the generated graph
@@ -166,7 +178,7 @@ public class ResultPresenter implements Serializable {
      */
     public void onCancel() {
         cancelExperiment = true;
-        progress = 0;
+        progress = 0; // ToDo: remove?
     }
 
     /**
