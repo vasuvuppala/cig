@@ -66,7 +66,7 @@
 
                 <p:panel id="experiments" header="Experiments"  toggleable="true" >
                     <p:panelGrid columns="4" styleClass="noBorders">
-                        <p:commandButton title="Start Experiments" icon="ui-icon-play" action="#{resultPresenter.runExperiments()}" async="true" 
+                        <p:commandButton id="startBtn" title="Start Experiments" icon="ui-icon-play" action="#{resultPresenter.runExperiments()}" async="true" 
                                          onclick="PF('pbAjax').start();PF('startButton').disable();PF('cancelButton').enable();" 
                                          widgetVar="startButton" />
 
@@ -85,6 +85,10 @@
                         <ui:include src="result-columns.xhtml" />                                   
                     </p:overlayPanel>
 
+                    <p:blockUI block="resultsTable" trigger="startBtn" >          
+                        <p:graphicImage value="/resources/images/ajax-loader.gif" style="background-color: transparent" />  
+                    </p:blockUI>
+                    
                     <p:dataTable id="resultsTable" var="item" value="#{resultPresenter.experimentResults}" 
                                  rowKey="#{item.experiment}" filteredValue="#{resultPresenter.filteredResults}"
                                  currentPageReportTemplate="Displaying {startRecord} - {endRecord} of {totalRecords}. Page: {currentPage}/{totalPages}"
